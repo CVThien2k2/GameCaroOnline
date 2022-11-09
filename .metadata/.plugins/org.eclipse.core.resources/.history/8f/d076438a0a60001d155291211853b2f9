@@ -1,0 +1,46 @@
+package controller;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import model.XO;
+
+public class JbuttonController implements MouseListener {
+	XO xo;
+
+	public JbuttonController(XO xo) {
+		// TODO Auto-generated constructor stub
+		this.xo = xo;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if()
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

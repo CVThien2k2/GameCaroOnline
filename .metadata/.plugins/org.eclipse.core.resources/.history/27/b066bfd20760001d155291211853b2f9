@@ -1,0 +1,10 @@
+package Main;
+
+import view.TicTacToeView;
+
+public class RUN {
+	public static void main(String[] args) {
+		new TicTacToeView();
+	}
+
+}

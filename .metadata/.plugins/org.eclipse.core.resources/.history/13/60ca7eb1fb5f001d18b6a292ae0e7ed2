@@ -1,0 +1,61 @@
+package model;
+
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class XO extends JButton  {
+	private point p;
+	private ImageIcon O;
+	private ImageIcon X;
+	public XO() {
+		// TODO Auto-generated constructor stub
+		O = new ImageIcon("Main/o.png");
+		X = new ImageIcon("o.png");
+		this.p = new point();
+		this.setIcon(O);
+		this.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				setBackground(Color.BLACK);
+//				this.setIcon(new ImageIcon("view/o.png"));
+			}
+		});
+	}
+	
+
+}

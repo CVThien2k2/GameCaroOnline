@@ -1,0 +1,84 @@
+package view;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+import model.XO;
+
+public class TicTacToeView extends JPanel {
+	private static final int M = 20;
+	private String user = "O";
+	private XO[][] BTXO = new XO[M][M];
+	private JPanel jpn;
+	public TicTacToeView() {
+		// TODO Auto-generated constructor stub
+		init();
+		this.setVisible(true);
+	}
+	public void init() {
+		this.setLayout(new GridLayout(M,M));
+		jpn = new JPanel();
+		for(int i =0 ;i<M;i++)
+			for(int j =0 ;j<M;j++) {
+				XO bt  = new XO();
+				BTXO[i][j] = bt;
+				BTXO[i][j].addMouseListener(new MouseListener() {
+					
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						bt.setBackground(Color.white);
+					}
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						bt.setBackground(null);
+					}
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						if(bt.p.isVisited()== false) {
+							if(user.equals("O")) {
+								bt.setIcon(new ImageIcon("C:\\DATA\\GM2\\src\\view\\o3.jpg"));
+								bt.p.setVisited(true);
+								user = "X";
+							}
+							else if(user.equals("X")) {
+								bt.setIcon(new ImageIcon("C:\\DATA\\GM2\\src\\view\\x3.jpg"));
+								bt.p.setVisited(true);
+								user = "O";
+								
+							}
+							
+						}
+					}
+				});
+				this.add(BTXO[i][j]);
+			}
+	}
+	
+
+}

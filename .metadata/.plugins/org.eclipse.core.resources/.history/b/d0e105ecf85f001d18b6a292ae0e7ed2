@@ -1,0 +1,31 @@
+package view;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import model.XO;
+
+public class TicTacToeView extends JFrame {
+	private XO[][] BTXO = new XO[20][20];
+	private JPanel jpn;
+	public TicTacToeView() {
+		// TODO Auto-generated constructor stub
+		init();
+		this.setVisible(true);
+	}
+	public void init() {
+		this.setTitle("Game");
+		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(600,600);
+		this.setLocationRelativeTo(null);
+		jpn = new JPanel();
+		for(int i =0 ;i<20;i++)
+			for(int j =0 ;j<20;j++) {
+				BTXO[i][j] = new XO();
+				this.add(BTXO[i][j]);
+			}
+	}
+	
+
+}
