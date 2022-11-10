@@ -25,7 +25,7 @@
 	</section>
 	<section name="NewClassWizardPage">
 		<item key="create_constructor" value="false"/>
-		<item key="create_unimplemented" value="true"/>
+		<item key="create_unimplemented" value="false"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog2">
 		<item key="ShowStatusLine" value="true"/>
@@ -89,5 +89,7 @@
 		<item key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_HEIGHT" value="400"/>
 		<item key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_USE_PERSISTED_SIZE" value="true"/>
 		<item key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_USE_PERSISTED_LOCATION" value="false"/>
+	</section>
+	<section name="RenameInformationPopup">
 	</section>
 </section>

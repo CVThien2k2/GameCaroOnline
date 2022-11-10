@@ -16,9 +16,11 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
-import controller.MenuController;
 
 import javax.swing.SpringLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuView extends JFrame {
 
@@ -41,28 +43,37 @@ public class MenuView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 		setContentPane(contentPane);
-		SpringLayout sl_contentPane = new SpringLayout();
-		contentPane.setLayout(sl_contentPane);
 
-		MenuController ac = new MenuController(this);
+		
 
 		JButton btnNewButton = new JButton("Chơi Ngay");
-		btnNewButton.addActionListener(ac);
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setForeground(Color.RED);
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnNewButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				new MenuPlayNowView();
+				
+			}
+		});
+		btnNewButton.setBounds(10, 85, 617, 65);
+		contentPane.setLayout(null);
+		btnNewButton.setBackground(new Color(128, 128, 0));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Thoát");
-		btnNewButton_1.addActionListener(ac);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton_1, 222, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, btnNewButton_1);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton, -66, SpringLayout.NORTH, btnNewButton_1);
-		sl_contentPane.putConstraint(SpringLayout.WEST, btnNewButton_1, 246, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton_1, -246, SpringLayout.EAST, contentPane);
-		btnNewButton_1.setBackground(Color.WHITE);
-		btnNewButton_1.setForeground(Color.RED);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnNewButton_1.setBounds(10, 203, 617, 57);
+		btnNewButton_1.setBackground(new Color(128, 128, 0));
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton_1.setToolTipText("Thoát");
 		contentPane.add(btnNewButton_1);
 	}

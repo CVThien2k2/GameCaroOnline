@@ -15,9 +15,9 @@ import javax.swing.JButton;
 
 
 public class Button_cell extends JButton  {
-	public Cell p;
+	public Cell cell;
 	public Button_cell() {
-		this.p = new Cell();
+		this.cell = new Cell();
 		this.setBackground(Color.white);
 }
 }
