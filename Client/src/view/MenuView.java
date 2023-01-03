@@ -94,6 +94,11 @@ public class MenuView extends JFrame {
 				contentPane.add(panel_2, BorderLayout.SOUTH);
 				
 				JButton btnNewButton_2 = new JButton("Exit");
+				btnNewButton_2.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
 				btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				panel_2.add(btnNewButton_2);
 				

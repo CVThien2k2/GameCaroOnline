@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ServerThreadBus {
 	private List<ServerThread> listServerThreads;
-	public static int ID_room;
+	public static int ID_room = 1;
 
 	public List<ServerThread> getListServerThreads() {
 		return listServerThreads;

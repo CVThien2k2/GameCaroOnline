@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.util.TimerTask;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -42,29 +45,51 @@ public class GameRoom extends JFrame {
 	private JButton me;
 	private JLabel luotdoithu;
 	private JLabel denluotban;
+	private JTextArea allsms;
+	private JLabel loading2;
+	private JLabel loading1;
+	private JLabel timebd;
+	private JTextField textField;
+	private Timer timer;
+	private int sec;
+	
 
 	public GameRoom(Socket client, Player player) throws IOException {
+		Timer timer = new Timer();
 		this.client = client;
 		this.player = player;
 		System.out.println(player.getValue());
+		loading2 = new JLabel("");
+		loading2.setHorizontalAlignment(SwingConstants.CENTER);
+		loading2.setBounds(815, 178, 70, 70);
+
+		loading1 = new JLabel("");
+		loading1.setBackground(Color.WHITE);
+		loading1.setHorizontalAlignment(SwingConstants.CENTER);
+		loading1.setBounds(98, 165, 70, 70);
 
 		if (player.getValue().equals("X")) {
 			click = true;
+			loading1.setIcon(new ImageIcon(GameRoom.class.getResource("/view/Ellipsis-1s-70px.gif")));
 		} else if (player.getValue().equals("O")) {
 			click = false;
+			loading2.setIcon(new ImageIcon(GameRoom.class.getResource("/view/Ellipsis-1s-70px.gif")));
+
 		}
 		os = new DataOutputStream(client.getOutputStream());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000, 500);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(275, 10, 430, 430);
+		panel.setBounds(278, 0, 430, 430);
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < M; j++) {
 				int x = i, y = j;
@@ -82,6 +107,9 @@ public class GameRoom extends JFrame {
 								bt.setIcon(new ImageIcon("C:\\DATA\\Client\\src\\view\\o1.png"));
 							}
 							setClick(false);
+							loading1.setIcon(null);
+							loading2.setIcon(new ImageIcon(GameRoom.class.getResource("/view/Ellipsis-1s-70px.gif")));
+
 							setluotdanh();
 							try {
 								write("attack," + x + "," + y);
@@ -108,7 +136,7 @@ public class GameRoom extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		me.setBounds(87, 35, 85, 68);
+		me.setBounds(93, 35, 85, 68);
 		contentPane.add(me);
 
 		doithu = new JButton("New button");
@@ -127,7 +155,8 @@ public class GameRoom extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, BorderLayout.CENTER);
 
-		JTextArea allsms = new JTextArea();
+		 allsms = new JTextArea("");
+		 allsms.setEditable(false);
 		scrollPane.setViewportView(allsms);
 
 		JPanel panel_2 = new JPanel();
@@ -140,20 +169,97 @@ public class GameRoom extends JFrame {
 		sms.setColumns(10);
 
 		JButton sendsms = new JButton("SEND");
+		sendsms.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String mess = sms.getText();
+				System.out.println(mess);
+				if(mess != null) {
+					try {
+						write("sms,"+mess);
+						allsms.setText(allsms.getText()+"\nTôi: "+mess);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				sms.setText("");
+			}
+		});
 		panel_2.add(sendsms, BorderLayout.WEST);
 
 		denluotban = new JLabel("New label");
 		denluotban.setHorizontalAlignment(SwingConstants.CENTER);
 		denluotban.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		denluotban.setBounds(66, 150, 128, 27);
+		denluotban.setBounds(70, 128, 128, 27);
 		contentPane.add(denluotban);
 
 		luotdoithu = new JLabel("New label");
 		luotdoithu.setHorizontalAlignment(SwingConstants.CENTER);
 		luotdoithu.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		luotdoithu.setBounds(782, 154, 150, 19);
+		luotdoithu.setBounds(779, 132, 150, 19);
 		contentPane.add(luotdoithu);
+		
+		 
+		contentPane.add(loading2);
+		
+		 
+		contentPane.add(loading1);
+		
+		timebd = new JLabel("Thời gian thi đấu");
+		timebd.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		timebd.setHorizontalAlignment(SwingConstants.CENTER);
+		timebd.setBounds(370, 440, 128, 19);
+		contentPane.add(timebd);
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setText("00:00");
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setBounds(509, 440, 96, 19);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Đầu hàng");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					write("dau-hang");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton.setBounds(87, 266, 111, 27);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Xin hòa");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					write("xin-hoa");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton_1.setBounds(87, 327, 111, 21);
+		contentPane.add(btnNewButton_1);
 		setluotdanh();
+		timer.scheduleAtFixedRate(new TimerTask() {
+
+			@Override
+			public void run() {
+				sec++;
+				// TODO Auto-generated method stub
+				textField.setText(((sec / 60) / 10) + "" + (sec / 60) % 10 + ":" + ((sec % 60) / 10)
+						+ (sec % 60 % 10));
+			}
+		}, 1000, 1000);
 		setVisible(true);
 	}
 
@@ -174,6 +280,10 @@ public class GameRoom extends JFrame {
 			}
 		}
 		setClick(true);
+		loading1.setIcon(new ImageIcon(GameRoom.class.getResource("/view/Ellipsis-1s-70px.gif")));
+		loading2.setIcon(null);
+
+
 		setluotdanh();
 	}
 
@@ -265,8 +375,7 @@ public class GameRoom extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(null, "Người chơi " + player.getName() + " đã chiến thắng", "Thông báo",
-				JOptionPane.INFORMATION_MESSAGE);
+		
 
 	}
 
@@ -288,5 +397,14 @@ public class GameRoom extends JFrame {
 			this.luotdoithu.setText("Đối thủ đang đánh");
 
 		}
+	}
+
+	public void setsms(String string) {
+		// TODO Auto-generated method stub
+		allsms.setText(allsms.getText()+"\nĐối thủ: "+string);
+	}
+	public void end() {
+		JOptionPane.showMessageDialog(null, "Đối thủ đã thoát trận, bạn đã thắng", "Thông báo",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 }

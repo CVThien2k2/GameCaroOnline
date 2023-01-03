@@ -15,6 +15,18 @@ public class ServerThread implements Runnable {
 	private String name;
 	private boolean isRoom;
 	private int ID_ROOM;
+	private boolean roomfull;
+	private boolean run;
+	
+	
+
+	public boolean isRoomfull() {
+		return roomfull;
+	}
+
+	public void setRoomfull(boolean roomfull) {
+		this.roomfull = roomfull;
+	}
 
 	public boolean isRoom() {
 		return isRoom;
@@ -49,6 +61,7 @@ public class ServerThread implements Runnable {
 		this.clientNumber = clientNumber;
 		isClosed = false;
 		this.isRoom = false;
+		this.roomfull = false;
 	}
 
 	public void write(String message) throws IOException {
@@ -77,19 +90,20 @@ public class ServerThread implements Runnable {
 				if (message == null) {
 					break;
 				}
-				
+
 				String[] messageSplit = message.split(",");
-				if(messageSplit[0].equals("set-name")) {
+				if (messageSplit[0].equals("set-name")) {
 					this.setName(messageSplit[1]);
 				}
 				if (messageSplit[0].equals("start")) {
-					
 
 					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
 						if (this != serverThread && serverThread.isRoom == true
 								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
-							this.write("start,X,"+this.getName()+","+serverThread.getName());
-							serverThread.write("start,O,"+serverThread.getName()+","+this.getName());
+							this.write("start,X," + this.getName() + "," + serverThread.getName());
+							this.run = true;
+							serverThread.write("start,O," + serverThread.getName() + "," + this.getName());
+							serverThread.run = true;
 						}
 					}
 
@@ -104,32 +118,143 @@ public class ServerThread implements Runnable {
 
 				}
 				if (messageSplit[0].equals("win")) {
-					Server.serverThreadBus.attack(clientNumber, "win");
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (serverThread.getClientNumber() != getClientNumber()) {
+							serverThread.write("lose");
+							this.run = false;
+							serverThread.run = false;
+							
+						}
+					}
+					this.write("win");
 				}
 				if (messageSplit[0].equals("create-room")) {
-					System.out.println(2);
 					Server.serverview.setnotify("Đã tạo phòng mới!");
 					Server.serverThreadBus.createRoom(this);
 					Server.serverThreadBus.RoomList();
 					write("create-success," + getID_ROOM());
+					
 				}
 
 				if (messageSplit[0].equals("join-room")) {
 					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
 						if (this != serverThread && serverThread.isRoom == true
-								&& serverThread.getID_ROOM() == Integer.parseInt(messageSplit[1])) {
+								&& serverThread.getID_ROOM() == Integer.parseInt(messageSplit[1])&&serverThread.roomfull == false) {
 							this.setID_ROOM(serverThread.getID_ROOM());
 							this.setRoom(true);
-							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room,"+this.getName());
-							this.write("me-join-room," + getID_ROOM() + ","+serverThread.getName());
+							serverThread.setRoomfull(true);
+							this.roomfull = true;
+							
+							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room," + this.getName());
+							this.write("me-join-room," + getID_ROOM() + "," + serverThread.getName());
 
 						}
 					}
-					 
+
+				}
+				if (messageSplit[0].equals("exit")) {
+
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (this != serverThread && serverThread.isRoom == true
+								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+							serverThread.write("doi-thu-da-thoat");
+							serverThread.setRoomfull(false);
+						}
+					}
+					this.setID_ROOM(0);
+					this.setRoom(false);
+					this.setRoomfull(false);
+					this.write("exit-room");
+					Server.serverThreadBus.RoomList();
+				}
+				if (messageSplit[0].equals("go-room-now")) {
+					int i = 0;
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (serverThread.isRoom == true && serverThread.roomfull == false) {
+							this.setID_ROOM(serverThread.getID_ROOM());
+							this.setRoom(true);
+							this.setRoomfull(true);
+							serverThread.setRoomfull(true);
+							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room-now," + this.getName());
+							this.write("me-join-room-now," + getID_ROOM() + "," + serverThread.getName());
+							i = 1;
+							break;
+
+						}
+					}
+					if(i == 0) {
+						Server.serverThreadBus.createRoom(this);
+						this.setRoomfull(false);
+						Server.serverThreadBus.RoomList();
+						write("create-now,"+this.getID_ROOM());
+					}
+				}
+				if (messageSplit[0].equals("khong-co-phong")) {
+					this.setRoom(false);
+					this.setID_ROOM(0);
+					this.setRoomfull(false);
+					Server.serverThreadBus.RoomList();
+					write("delete");
+				}
+				if (messageSplit[0].equals("sms")) {
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (this != serverThread && serverThread.isRoom == true
+								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+							serverThread.write("sms," + messageSplit[1]);
+						}
+					}
+				}
+				if (messageSplit[0].equals("dau-hang")) {
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (this != serverThread && serverThread.isRoom == true
+								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+							serverThread.write("doi-thu-dau-hang");
+						}
+					}
+					this.write("dau-hang");
+				}
+				if (messageSplit[0].equals("xin-hoa")) {
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (this != serverThread && serverThread.isRoom == true
+								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+							serverThread.write("doi-thu-xin-hoa");
+						}
+					}
+				}
+				if (messageSplit[0].equals("yes-hoa")) {
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (this != serverThread && serverThread.isRoom == true
+								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+							serverThread.write("dong-y-hoa");
+						}
+					}
+				}
+				if (messageSplit[0].equals("no-hoa")) {
+					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+						if (this != serverThread && serverThread.isRoom == true
+								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+							serverThread.write("khong-hoa");
+						}
+					}
+				}
+				
+			}
+		} catch (IOException e) {
+			if(this.run == true) {
+				for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+					if (this != serverThread && serverThread.isRoom == true
+							&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+						try {
+							serverThread.write("doi-thu-da-thoat-game");
+							serverThread.roomfull = false;
+							serverThread.run = false;
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 				}
 			}
-
-		} catch (IOException e) {
 
 			setRoom(false);
 			Server.serverThreadBus.RoomList();

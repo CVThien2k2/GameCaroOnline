@@ -99,7 +99,13 @@ public class HainguoichoiView extends JFrame {
 						JPanel panel_2 = new JPanel();
 						contentPane.add(panel_2, BorderLayout.SOUTH);
 						
-						JButton btnNewButton_4 = new JButton("Exit");
+						JButton btnNewButton_4 = new JButton("Back");
+						btnNewButton_4.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								dispose();
+								new MenuPlayNowView();
+							}
+						});
 						btnNewButton_4.setForeground(new Color(255, 255, 255));
 						btnNewButton_4.setBackground(new Color(255, 0, 0));
 						btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 15));

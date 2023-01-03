@@ -37,10 +37,13 @@ public class ViewOnline extends JFrame {
 	private DataOutputStream os;
 	private Player player;
 	private JTextField textField_1;
+	private loading ld;
+	
 	
 	public ViewOnline(Socket client, Player player) {
 		this.client = client;
 		this.player = player;
+		ld  = new loading();
 		try {
 			this.os = new DataOutputStream(client.getOutputStream());
 		} catch (IOException e) {
@@ -69,6 +72,32 @@ public class ViewOnline extends JFrame {
 		panel_2.setLayout(new GridLayout(2, 2, 30, 30));
 		
 		JButton btnNewButton_2 = new JButton("Chơi ngay");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+					ld.setVisible(true);
+					ld.setLocationRelativeTo(panel_2);
+					
+					ld.btnNewButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							try {
+								write("khong-co-phong");
+								ld.dispose();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					});
+					write("go-room-now");
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_2.add(btnNewButton_2);
 		
@@ -104,6 +133,11 @@ public class ViewOnline extends JFrame {
 		panel_2.add(btnNewButton);
 		
 		JButton btnNewButton_3 = new JButton("Thoát");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_2.add(btnNewButton_3);
 		
@@ -149,6 +183,9 @@ public class ViewOnline extends JFrame {
 	public void write(String message) throws IOException {
 		os.writeUTF(message);
 		os.flush();
+	}
+	public void closeld() {
+		ld.dispose();
 	}
 
 }

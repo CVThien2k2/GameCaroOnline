@@ -88,6 +88,15 @@ public class PlayView5 extends JFrame {
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Home");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new MenuView();
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_5);
 
 		JMenu mnNewMenu = new JMenu("Setting");
 		menuBar.add(mnNewMenu);

@@ -90,6 +90,12 @@ public class MenuPlayNowView extends JFrame {
 						contentPane.add(panel_2, BorderLayout.SOUTH);
 						
 						JButton btnNewButton_2_1 = new JButton("Quay lại");
+						btnNewButton_2_1.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								dispose();
+								new MenuView();
+							}
+						});
 						btnNewButton_2_1.setForeground(new Color(255, 255, 255));
 						btnNewButton_2_1.setBackground(new Color(255, 0, 0));
 						btnNewButton_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));

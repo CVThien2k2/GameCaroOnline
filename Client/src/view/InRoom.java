@@ -11,6 +11,8 @@ import controller.Client;
 import model.Player;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
@@ -22,6 +24,7 @@ import java.net.Socket;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 
 public class InRoom extends JFrame {
 
@@ -32,6 +35,8 @@ public class InRoom extends JFrame {
 	private JButton doithu;
 	private JButton btnNewButton;
 	private JLabel lblNewLabel;
+	private JButton btnNewButton_1;
+	private boolean first;
 
 	public InRoom(Socket client, Player player) {
 		this.client = client;
@@ -59,6 +64,7 @@ public class InRoom extends JFrame {
 		JButton toi = new JButton("");
 		toi.setBounds(0, 0, 108, 108);
 		toi.setText(player.getName());
+		toi.setBackground(Color.red);
 		panel.add(toi);
 
 		doithu = new JButton("<Trống>");
@@ -77,6 +83,8 @@ public class InRoom extends JFrame {
 		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		flowLayout.setHgap(120);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 
 		btnNewButton = new JButton("Bắt đầu");
@@ -94,6 +102,21 @@ public class InRoom extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_1.add(btnNewButton);
+		
+		btnNewButton_1 = new JButton("Exit");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					write("exit");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_1.add(btnNewButton_1);
 		setVisible(true);
 	}
 
@@ -104,7 +127,10 @@ public class InRoom extends JFrame {
 
 	public void setplayer1(String user) {
 		doithu.setText(user);
+		doithu.setBackground(Color.BLUE);
+		
 		btnNewButton.setEnabled(true);
+		
 
 	}
 	public void SetIDRoom(String id) {
@@ -112,5 +138,13 @@ public class InRoom extends JFrame {
 	}
 	public void setplayer2(String user) {
 		doithu.setText(user);
+		doithu.setBackground(Color.BLUE);
+		btnNewButton.setVisible(false);
+	}
+	public void exitroom() {
+		doithu.setBackground(Color.gray);
+		doithu.setText("");
+		btnNewButton.setVisible(true);
+		btnNewButton.setEnabled(false);
 	}
 }
