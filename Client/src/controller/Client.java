@@ -12,7 +12,7 @@ import model.Player;
 import view.GameRoom;
 import view.InRoom;
 import view.MenuView;
-import view.ViewOnline;
+import view.Home;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -29,7 +29,7 @@ import java.net.UnknownHostException;
 
 public class Client {
 	private GameRoom gameroom;
-	private ViewOnline viewonline;
+	private Home viewonline;
 	private InRoom inroom;
 
 	private Socket client;
@@ -73,7 +73,7 @@ public class Client {
 							if (messageSplit[0].equals("set-player")) {
 								int ID = Integer.parseInt(messageSplit[1]);
 								player = new Player(name, "No", ID);
-								viewonline = new ViewOnline(client, player);
+								viewonline = new Home(client, player);
 							}
 							if (messageSplit[0].equals("create-success")) {
 								viewonline.setVisible(false);

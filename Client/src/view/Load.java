@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class loading extends JFrame {
+public class Load extends JFrame {
 
 	private JPanel contentPane;
 	public JButton btnNewButton;
@@ -28,7 +28,7 @@ public class loading extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public loading() {
+	public Load() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 455, 298);
 		contentPane = new JPanel();
@@ -50,7 +50,7 @@ public class loading extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setIcon(new ImageIcon(loading.class.getResource("/view/Wedges-2.6s-100px.gif")));
+		lblNewLabel_1.setIcon(new ImageIcon(Load.class.getResource("/view/Wedges-2.6s-100px.gif")));
 		lblNewLabel_1.setBounds(165, 75, 100, 100);
 		panel.add(lblNewLabel_1);
 		

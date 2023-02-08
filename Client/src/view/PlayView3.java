@@ -25,11 +25,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.JTextField;
 
@@ -46,15 +48,27 @@ public class PlayView3 extends JFrame {
 	private boolean ST = false;
 	Timer timer = new Timer();
 	private JLabel lblNewLabel_2 = new JLabel("--");
-
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_8;
-
-	private JButton btnNewButton;
-
+	private JButton btnStart;
 	private JLabel lblNewLabel_4;
-
+	private Image imgX, imgO, img_IconsXO, img_Start, img_Stop, img_Continue, img_Reset, img_Exit, img_Home;
+	
 	public PlayView3() {
+		
+		try{
+            imgO = ImageIO.read(getClass().getResource("o1.png"));
+            imgX = ImageIO.read(getClass().getResource("x1.png"));
+            img_IconsXO = ImageIO.read(getClass().getResource("IconsXO_100x100.png"));
+            img_Start = ImageIO.read(getClass().getResource("buttonBatdau_114x38.png"));
+            img_Stop = ImageIO.read(getClass().getResource("buttonTamdung_114x38.png"));
+            img_Continue = ImageIO.read(getClass().getResource("buttonTieptuc_114x38.png"));
+            img_Reset = ImageIO.read(getClass().getResource("reset_50x50.png"));
+            img_Exit = ImageIO.read(getClass().getResource("exit_50x50.png"));
+            img_Home = ImageIO.read(getClass().getResource("home_50x50.png"));
+    	}catch (Exception e){
+            e.printStackTrace();
+    	}
 
 		Start();
 		setVisible(true);
@@ -63,99 +77,73 @@ public class PlayView3 extends JFrame {
 		setSize(940, 685);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
 
-		JMenu mnNewMenu_2 = new JMenu("Menu");
-		menuBar.add(mnNewMenu_2);
-
-		JMenuItem mntmNewMenuItem = new JMenuItem("Continue");
-		mnNewMenu_2.add(mntmNewMenuItem);
-
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Restart");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Reset();
-			}
-		});
-		mnNewMenu_2.add(mntmNewMenuItem_1);
-
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Exit");
-		mntmNewMenuItem_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-
-			}
-		});
-		mnNewMenu_2.add(mntmNewMenuItem_2);
-
-		JMenu mnNewMenu = new JMenu("Setting");
-		menuBar.add(mnNewMenu);
-
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Information");
-		mnNewMenu.add(mntmNewMenuItem_3);
-
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Help");
-		mnNewMenu.add(mntmNewMenuItem_4);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(83, 168, 168));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JPanel tictactoe = new JPanel();
+		tictactoe.setBackground(new Color(83, 168, 168));
 
 		tictactoe.setLayout(new GridLayout(M, M,20,20));
 		tictactoe.setBounds(241, 0, 675, 616);
 		contentPane.add(tictactoe);
 
-		JLabel lblNewLabel = new JLabel("Thông tin trận đấu");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(28, 35, 187, 28);
-		contentPane.add(lblNewLabel);
-
 		JLabel lblNewLabel_1 = new JLabel("Đến lượt: ");
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(10, 105, 96, 22);
+		lblNewLabel_1.setBounds(10, 224, 96, 22);
 		contentPane.add(lblNewLabel_1);
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(116, 107, 115, 19);
+		lblNewLabel_2.setBounds(116, 227, 115, 19);
 		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Số lượt đã đánh: ");
+		lblNewLabel_3.setForeground(new Color(255, 255, 255));
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(10, 175, 118, 22);
+		lblNewLabel_3.setBounds(10, 257, 118, 22);
 		contentPane.add(lblNewLabel_3);
 
 		lblNewLabel_4 = new JLabel(clicked + "");
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4.setBounds(151, 175, 57, 20);
+		lblNewLabel_4.setBounds(151, 258, 57, 20);
 		contentPane.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Trận đấu giữa: ");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_5.setForeground(new Color(255, 255, 255));
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(67, 441, 106, 28);
+		lblNewLabel_5.setBounds(57, 420, 131, 28);
 		contentPane.add(lblNewLabel_5);
 
 		lblNewLabel_6 = new JLabel(player1.getName() + " VS " + player2.getName());
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_6.setForeground(new Color(255, 255, 255));
+		lblNewLabel_6.setFont(new Font("Comforter", Font.BOLD, 26));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setBounds(41, 479, 166, 22);
+		lblNewLabel_6.setBounds(0, 450, 242, 42);
 		contentPane.add(lblNewLabel_6);
 
-		btnNewButton = new JButton("Start");
-		btnNewButton.setBackground(new Color(0, 255, 64));
+		btnStart = new JButton("0");
+		btnStart.setForeground(new Color(83, 168, 168));
+		btnStart.setBackground(new Color(83, 168, 168));
+		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 5));
+		btnStart.setBounds(62, 500, 126, 40);
+		Image imgStart = img_Start;
+		btnStart.setIcon(new ImageIcon(imgStart));
 
-		btnNewButton.addActionListener(new ActionListener() {
+		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cl = e.getActionCommand();
 
-				if (cl.equals("Start")) {
+				if (cl.equals("0")) {
 					ST = true;
 					timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -167,15 +155,17 @@ public class PlayView3 extends JFrame {
 									+ (sec % 60 % 10));
 						}
 					}, 1000, 1000);
-					btnNewButton.setText("Stop");
+					Image imgStop = img_Stop;
+					btnStart.setIcon(new ImageIcon(imgStop));
+					btnStart.setText("1");
 
-				} else if (cl.equals("Continue")) {
+				} else if (cl.equals("2")) {
 					ST = true;
 
 					timer.cancel();
 					timer = new Timer();
-					btnNewButton.setSize(75, 35);
-					btnNewButton.setBackground(Color.red);
+					Image imgStop = img_Stop;
+					btnStart.setIcon(new ImageIcon(imgStop));
 					timer.scheduleAtFixedRate(new TimerTask() {
 
 						@Override
@@ -186,32 +176,107 @@ public class PlayView3 extends JFrame {
 									+ (sec % 60 % 10));
 						}
 					}, 1000, 1000);
-					btnNewButton.setText("Stop");
-				} else if (cl.equals("Stop")) {
+					btnStart.setText("1");
+				} else if (cl.equals("1")) {
 					ST = false;
 					timer.cancel();
-					btnNewButton.setSize(100, 35);
-					btnNewButton.setBackground(Color.blue);
-					btnNewButton.setText("Continue");
+					Image imgContinue = img_Continue;
+					btnStart.setIcon(new ImageIcon(imgContinue));
+					btnStart.setText("2");
 
 				}
 
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton.setBounds(77, 523, 73, 36);
-		contentPane.add(btnNewButton);
+		contentPane.add(btnStart);
 
 		JLabel lblNewLabel_7 = new JLabel("Thời gian thi đấu");
+		lblNewLabel_7.setForeground(new Color(255, 255, 255));
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_7.setBounds(67, 240, 118, 22);
+		lblNewLabel_7.setBounds(55, 290, 118, 22);
 		contentPane.add(lblNewLabel_7);
 
 		lblNewLabel_8 = new JLabel("00:00");
+		lblNewLabel_8.setForeground(new Color(255, 255, 255));
 		lblNewLabel_8.setBackground(new Color(192, 192, 192));
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_8.setBounds(96, 287, 65, 13);
+		lblNewLabel_8.setBounds(90, 323, 65, 13);
 		contentPane.add(lblNewLabel_8);
+
+		
+		
+		JLabel lblIconsXO = new JLabel("");
+		lblIconsXO.setBounds(0, 11, 85, 82);
+		Image imgIconsXO = img_IconsXO;
+		lblIconsXO.setIcon(new ImageIcon(imgIconsXO));
+		contentPane.add(lblIconsXO);
+		
+		JLabel lblgameCaro = new JLabel("Game Caro");
+		lblgameCaro.setForeground(new Color(255, 238, 240));
+		lblgameCaro.setFont(new Font(".VnCooperH", Font.PLAIN, 20));
+		lblgameCaro.setBounds(90, 31, 152, 44);
+		contentPane.add(lblgameCaro);
+		
+		JLabel lblOffline = new JLabel("Offline");
+		lblOffline.setForeground(new Color(255, 238, 240));
+		lblOffline.setFont(new Font("Space Mono", Font.BOLD, 16));
+		lblOffline.setBounds(124, 69, 76, 28);
+		contentPane.add(lblOffline);
+		
+		JLabel lblChoivsMay = new JLabel("Hai người chơi");
+		lblChoivsMay.setBackground(new Color(255, 238, 240));
+		lblChoivsMay.setForeground(new Color(255, 238, 240));
+		lblChoivsMay.setFont(new Font("Space Mono", Font.BOLD, 16));
+		lblChoivsMay.setBounds(88, 96, 150, 28);
+		contentPane.add(lblChoivsMay);
+		
+		JLabel lblThongtinTrandau = new JLabel("Thông tin trận đấu");
+		lblThongtinTrandau.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThongtinTrandau.setForeground(Color.WHITE);
+		lblThongtinTrandau.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblThongtinTrandau.setBounds(12, 170, 219, 43);
+		contentPane.add(lblThongtinTrandau);
+		
+		JButton btnExit = new JButton("");
+		btnExit.setFont(new Font("Space Mono", Font.BOLD, 18));
+		btnExit.setBackground(new Color(83, 168, 168));
+		btnExit.setBounds(10, 562, 54, 54);
+		Image imgExit = img_Exit;
+		btnExit.setIcon(new ImageIcon(imgExit));
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		contentPane.add(btnExit);
+		
+		JButton btnHome = new JButton("");
+		btnHome.setFont(new Font("Space Mono", Font.BOLD, 18));
+		btnHome.setBackground(new Color(83, 168, 168));
+		btnHome.setBounds(93, 562, 54, 54);
+		Image imgHome = img_Home;
+		btnHome.setIcon(new ImageIcon(imgHome));
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new MenuView();
+			}
+		});
+		contentPane.add(btnHome);
+		
+		JButton btnReset = new JButton("");
+		btnReset.setFont(new Font("Space Mono", Font.BOLD, 18));
+		btnReset.setBackground(new Color(83, 168, 168));
+		btnReset.setBounds(175, 562, 54, 54);
+		Image imgReset = img_Reset;
+		btnReset.setIcon(new ImageIcon(imgReset));
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new PlayView3();
+			}
+		});
+		contentPane.add(btnReset);
 
 		for (int i = 0; i < M; i++)
 			for (int j = 0; j < M; j++) {
@@ -227,7 +292,7 @@ public class PlayView3 extends JFrame {
 					}
 
 					@Override
-					public void mousePressed(MouseEvent e) {
+					public void mouseClicked(MouseEvent e) {
 						// TODO Auto-generated method stub
 
 					}
@@ -245,13 +310,14 @@ public class PlayView3 extends JFrame {
 					}
 
 					@Override
-					public void mouseClicked(MouseEvent e) {
+					public void mousePressed(MouseEvent e) {
 						if (ST == true) {
 							// TODO Auto-generated method stub
 							if (bt.cell.isVisited() == false) {
 								if (PlayerCR == player1) {
 									clicked++;
-									bt.setIcon(new ImageIcon("C:\\DATA\\Client\\src\\view\\o1.png"));
+									Image img = imgO;
+									bt.setIcon(new ImageIcon(img));
 									bt.cell.setValue("O");
 									bt.cell.setVisited(true);
 									checkWin5(x, y);
@@ -264,7 +330,8 @@ public class PlayView3 extends JFrame {
 
 								} else if (PlayerCR == player2) {
 									clicked++;
-									bt.setIcon(new ImageIcon("C:\\DATA\\Client\\src\\view\\x1.png"));
+									Image img = imgX;
+									bt.setIcon(new ImageIcon(img));
 									bt.cell.setValue("X");
 									bt.cell.setVisited(true);
 
@@ -368,8 +435,8 @@ public class PlayView3 extends JFrame {
 	}
 
 	public void Reset() {
-		btnNewButton.setText("Start");
-		btnNewButton.setBackground(Color.green);
+		btnStart.setText("Start");
+		btnStart.setBackground(Color.green);
 		lblNewLabel_4.setText(0 + "");
 		lblNewLabel_8.setText("00:00");
 		timer.cancel();
@@ -405,8 +472,8 @@ public class PlayView3 extends JFrame {
 		int res = JOptionPane.showConfirmDialog(this, "Bạn muốn chơi lại không?", "Ván này hòa ",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (res == JOptionPane.YES_OPTION) {
-			btnNewButton.setText("Start");
-			btnNewButton.setBackground(Color.GREEN);
+			btnStart.setText("Start");
+			btnStart.setBackground(Color.GREEN);
 			Reset();
 		} else if (res == JOptionPane.NO_OPTION) {
 			String[] option = { "Trở về Menu chính", "Thoát game" };
@@ -431,8 +498,8 @@ public class PlayView3 extends JFrame {
 		int res = JOptionPane.showConfirmDialog(this, "Bạn muốn chơi lại không?", "Đã hết game ",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (res == JOptionPane.YES_OPTION) {
-			btnNewButton.setText("Start");
-			btnNewButton.setBackground(Color.GREEN);
+			btnStart.setText("Start");
+			btnStart.setBackground(Color.GREEN);
 			Reset();
 		} else if (res == JOptionPane.NO_OPTION) {
 			String[] option = { "Trở về Menu chính", "Thoát game" };

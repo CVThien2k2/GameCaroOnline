@@ -29,21 +29,22 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ViewOnline extends JFrame {
+public class Home extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private Socket client;
 	private DataOutputStream os;
 	private Player player;
 	private JTextField textField_1;
-	private loading ld;
+	private Load ld;
 	
 	
-	public ViewOnline(Socket client, Player player) {
+	public Home(Socket client, Player player) {
 		this.client = client;
 		this.player = player;
-		ld  = new loading();
+		ld  = new Load();
 		try {
 			this.os = new DataOutputStream(client.getOutputStream());
 		} catch (IOException e) {

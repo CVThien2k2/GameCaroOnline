@@ -8,7 +8,7 @@ public class AlphaBetaModel {
 	private static final int K=5;
 	
 	//Mảng arr[][] lưu các giá trị 0,1,-1 trong đó: 0 là ô trống; 1 là ô Máy đã đánh; -1 là ô Người chơi đã đánh
-	public static int[] calculateNextMove(int [][]arr) {
+	public static int[] calculateNextMove(int [][]arr, int depth) {
 		int[] bestMove = searchWinningMove(arr); 
 		int[] badMove = searchLoseMove(arr);
 		int[] move = new int[2];
@@ -19,7 +19,7 @@ public class AlphaBetaModel {
 		//Nếu tìm được nước Máy (O) thua ngay sau đó thì ta chặn lại nước đó luôn
 		if (badMove[0] != -1 && badMove[1] != -1) return badMove;
 			
-		double[] alphaBetaMove = alphaBeta(3, arr, 1, -1.0, winScore);
+		double[] alphaBetaMove = alphaBeta(depth, arr, 1, -1.0, winScore);
 		if(alphaBetaMove[0] == -1) {
 			move[0] =-1;
 			move[1]	=-1;
@@ -191,5 +191,6 @@ public class AlphaBetaModel {
 		return moveList;
 	}	
 }
+
 
 
