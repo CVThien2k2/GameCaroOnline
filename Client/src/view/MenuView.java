@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import java.awt.Toolkit;
 
 public class MenuView extends JFrame {
 
@@ -37,6 +38,7 @@ public class MenuView extends JFrame {
 	private Image img_0, img_1, img_Reset, img_Exit, img_3, img_5, img_ChoiNgay, img_Online;
 
 	public MenuView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuView.class.getResource("/view/tic-tac-toe.png")));
 		init();
 		this.setVisible(true);
 	}
@@ -77,7 +79,7 @@ public class MenuView extends JFrame {
 		JLabel lblIconsXO_1 = new JLabel("");
 		Image img1 = img_1;
 		lblIconsXO_1.setIcon(new ImageIcon(img1));
-		lblIconsXO_1.setBounds(40, 26, 227, 177);
+		lblIconsXO_1.setBounds(40, 25, 227, 177);
 		panel_1.add(lblIconsXO_1);
 		
 		JButton btnReset = new JButton("");
@@ -98,8 +100,8 @@ public class MenuView extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1.setBackground(new Color(240, 240, 240));
 		lblNewLabel_1.setForeground(new Color(191, 238, 255));
-		lblNewLabel_1.setFont(new Font(".Vn3DH", lblNewLabel_1.getFont().getStyle() | Font.BOLD, lblNewLabel_1.getFont().getSize() + 14));
-		lblNewLabel_1.setBounds(18, 220, 253, 46);
+		lblNewLabel_1.setFont(new Font("French Script MT", Font.BOLD, 40));
+		lblNewLabel_1.setBounds(66, 212, 178, 46);
 		panel_1.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Game Online");

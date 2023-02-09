@@ -13,6 +13,7 @@ public class ServerThread implements Runnable {
 	private DataOutputStream os;
 	private boolean isClosed;
 	private String name;
+	private String avatar;
 	private boolean isRoom;
 	private int ID_ROOM;
 	private boolean roomfull;
@@ -80,7 +81,6 @@ public class ServerThread implements Runnable {
 			System.out.println("Khời động luông mới thành công, ID là: " + clientNumber);
 			Server.serverview.setnotify("Một người chơi vừa đăng nhập , ID là: " + clientNumber);
 			Server.serverThreadBus.SetOnlineList();
-			write("set-player" + "," + this.clientNumber);
 
 			String message;
 
@@ -92,17 +92,19 @@ public class ServerThread implements Runnable {
 				}
 
 				String[] messageSplit = message.split(",");
-				if (messageSplit[0].equals("set-name")) {
+				if (messageSplit[0].equals("set-player")) {
 					this.setName(messageSplit[1]);
+					this.avatar = messageSplit[2];
+					write("set-player" + "," +messageSplit[1]+","+ this.clientNumber+","+this.avatar);
 				}
 				if (messageSplit[0].equals("start")) {
 
 					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
 						if (this != serverThread && serverThread.isRoom == true
 								&& serverThread.getID_ROOM() == this.getID_ROOM()) {
-							this.write("start,X," + this.getName() + "," + serverThread.getName());
+							this.write("start,X," + serverThread.getName()+","+serverThread.avatar);
 							this.run = true;
-							serverThread.write("start,O," + serverThread.getName() + "," + this.getName());
+							serverThread.write("start,O," + this.getName()+","+this.avatar);
 							serverThread.run = true;
 						}
 					}
@@ -145,8 +147,8 @@ public class ServerThread implements Runnable {
 							serverThread.setRoomfull(true);
 							this.roomfull = true;
 							
-							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room," + this.getName());
-							this.write("me-join-room," + getID_ROOM() + "," + serverThread.getName());
+							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room," + this.getName()+","+this.avatar);
+							this.write("me-join-room," + getID_ROOM() + "," + serverThread.getName()+","+serverThread.avatar);
 
 						}
 					}
@@ -175,8 +177,8 @@ public class ServerThread implements Runnable {
 							this.setRoom(true);
 							this.setRoomfull(true);
 							serverThread.setRoomfull(true);
-							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room-now," + this.getName());
-							this.write("me-join-room-now," + getID_ROOM() + "," + serverThread.getName());
+							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room-now," + this.getName()+","+this.avatar);
+							this.write("me-join-room-now," + getID_ROOM() + "," + serverThread.getName()+","+serverThread.avatar);
 							i = 1;
 							break;
 

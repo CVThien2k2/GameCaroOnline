@@ -14,7 +14,6 @@
     <fullyQualifiedTypeName name="view.TicTacToeView"/>
     <fullyQualifiedTypeName name="controller.MenuPlayNowController"/>
     <fullyQualifiedTypeName name="view.MenuPlayNowView"/>
-    <fullyQualifiedTypeName name="java.awt.Image"/>
     <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
     <fullyQualifiedTypeName name="java.util.TimerTask"/>
     <fullyQualifiedTypeName name="On.Server"/>
@@ -55,4 +54,5 @@
     <fullyQualifiedTypeName name="view.loading"/>
     <fullyQualifiedTypeName name="java.util.Timer"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.awt.Image"/>
 </qualifiedTypeNameHistroy>

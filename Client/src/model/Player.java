@@ -4,6 +4,16 @@ public class Player {
 	private String Name;
 	private String Value;
 	private int ID;
+	private String avatar;
+	
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 
 	public int getID() {
 		return ID;
@@ -29,10 +39,11 @@ public class Player {
 		Value = value;
 	}
 
-	public Player(String name, String value, int ID) {
+	public Player(String name, String value, int ID, String avt) {
 		Name = name;
 		Value = value;
 		this.ID = ID;
+		this.avatar = avt;
 	}
 
 	public Player(String name, String value) {

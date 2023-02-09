@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
 
 public class InRoom extends JFrame {
 
@@ -32,11 +33,14 @@ public class InRoom extends JFrame {
 	private Socket client;
 	private DataOutputStream os;
 	private Player player;
-	private JButton doithu;
 	private JButton btnNewButton;
 	private JLabel lblNewLabel;
 	private JButton btnNewButton_1;
 	private boolean first;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_4;
 
 	public InRoom(Socket client, Player player) {
 		this.client = client;
@@ -61,26 +65,36 @@ public class InRoom extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
-		JButton toi = new JButton("");
-		toi.setBounds(0, 0, 108, 108);
-		toi.setText(player.getName());
-		toi.setBackground(Color.red);
-		panel.add(toi);
-
-		doithu = new JButton("<Trống>");
-		doithu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		doithu.setBounds(318, 0, 108, 108);
-		panel.add(doithu);
-
 		lblNewLabel = new JLabel("ID ROOM: ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(150, 10, 132, 13);
 		panel.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("avt1");
+		lblNewLabel_1.setIcon(new ImageIcon("image/"+player.getAvatar()+".jpg"));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(10, 45, 93, 85);
+		panel.add(lblNewLabel_1);
+		
+		lblNewLabel_2 = new JLabel("<name>\r\n");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_2.setBounds(20, 144, 64, 13);
+		lblNewLabel_2.setText(player.getName());
+		panel.add(lblNewLabel_2);
+		
+		
+		lblNewLabel_3 = new JLabel("avt2");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(323, 45, 93, 85);
+		lblNewLabel_3.setText("Trống");
+		panel.add(lblNewLabel_3);
+		
+		lblNewLabel_4 = new JLabel("<name>\r\n");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_4.setBounds(333, 144, 64, 13);
+		lblNewLabel_4.setText(null);
+		panel.add(lblNewLabel_4);
 
 		JPanel panel_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
@@ -125,10 +139,9 @@ public class InRoom extends JFrame {
 		os.flush();
 	}
 
-	public void setplayer1(String user) {
-		doithu.setText(user);
-		doithu.setBackground(Color.BLUE);
-		
+	public void setplayer1(String user,String avt) {
+		lblNewLabel_3.setIcon(new ImageIcon("image/"+avt+".jpg"));
+		lblNewLabel_4.setText(user);
 		btnNewButton.setEnabled(true);
 		
 
@@ -136,14 +149,14 @@ public class InRoom extends JFrame {
 	public void SetIDRoom(String id) {
 		lblNewLabel.setText("ID ROOM: "+id);
 	}
-	public void setplayer2(String user) {
-		doithu.setText(user);
-		doithu.setBackground(Color.BLUE);
+	public void setplayer2(String user,String avt) {
+		lblNewLabel_4.setText(user);
+		lblNewLabel_3.setIcon(new ImageIcon("image/"+avt+".jpg"));
 		btnNewButton.setVisible(false);
 	}
 	public void exitroom() {
-		doithu.setBackground(Color.gray);
-		doithu.setText("");
+		lblNewLabel_3.setIcon(null);
+		lblNewLabel_4.setText("Trống");
 		btnNewButton.setVisible(true);
 		btnNewButton.setEnabled(false);
 	}

@@ -12,6 +12,7 @@ import model.Player;
 import view.GameRoom;
 import view.InRoom;
 import view.MenuView;
+import view.ViewSetUser;
 import view.Home;
 
 import javax.swing.JLabel;
@@ -31,6 +32,7 @@ public class Client {
 	private GameRoom gameroom;
 	private Home viewonline;
 	private InRoom inroom;
+	private ViewSetUser viewsetuser;
 
 	private Socket client;
 	private DataOutputStream os;
@@ -39,12 +41,10 @@ public class Client {
 	private Thread thread;
 	private Player player;
 	private String name;
+	private String avatar;
 
  
 	public Client() {
-		
-		name = JOptionPane.showInputDialog("Nhập tên của bạn");
-
 		upSocket();
 	}
 
@@ -61,7 +61,7 @@ public class Client {
 						os = new DataOutputStream(client.getOutputStream());
 						// Luồng đầu vào tại Client (Nhận dữ liệu từ server).
 						is = new DataInputStream(client.getInputStream());
-						write("set-name,"+name);
+						viewsetuser = new ViewSetUser(client);
 						String message;
 
 						while (true) {
@@ -71,8 +71,8 @@ public class Client {
 							}
 							String[] messageSplit = message.split(",");
 							if (messageSplit[0].equals("set-player")) {
-								int ID = Integer.parseInt(messageSplit[1]);
-								player = new Player(name, "No", ID);
+								int ID = Integer.parseInt(messageSplit[2]);
+								player = new Player(messageSplit[1], "No", ID,messageSplit[3]);
 								viewonline = new Home(client, player);
 							}
 							if (messageSplit[0].equals("create-success")) {
@@ -86,7 +86,7 @@ public class Client {
 								inroom.SetIDRoom(messageSplit[1]);
 							}
 							if (messageSplit[0].equals("doi-thu-join-room")) {
-								inroom.setplayer1(messageSplit[1]);
+								inroom.setplayer1(messageSplit[1],messageSplit[1]);
 								System.out.println("Doi thu vao room");
 							}
 			
@@ -96,13 +96,13 @@ public class Client {
 								viewonline.setVisible(false);
 								inroom = new InRoom(client,player);
 								inroom.SetIDRoom(messageSplit[1]);
-								inroom.setplayer2(messageSplit[2]);
+								inroom.setplayer2(messageSplit[2],messageSplit[3]);
 							}
 							if (messageSplit[0].equals("doi-thu-join-room-now")) {
 								inroom.setVisible(true);
 								viewonline.closeld();
 								viewonline.setVisible(false);
-								inroom.setplayer1(messageSplit[1]);
+								inroom.setplayer1(messageSplit[1],messageSplit[2]);
 								System.out.println("Doi thu vao room");
 							}
 			
@@ -112,7 +112,7 @@ public class Client {
 								viewonline.setVisible(false);
 								inroom = new InRoom(client,player);
 								inroom.SetIDRoom(messageSplit[1]);
-								inroom.setplayer2(messageSplit[2]);
+								inroom.setplayer2(messageSplit[2],messageSplit[3]);
 							}
 							if (messageSplit[0].equals("doi-thu-da-thoat")) {
 								inroom.exitroom();

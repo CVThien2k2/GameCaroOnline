@@ -5,6 +5,7 @@ import java.util.TimerTask;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,6 +25,8 @@ import model.Player;
 
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.Image;
+
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -33,7 +37,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 public class GameRoom extends JFrame {
-	private static final int M = 12;
+	private static final int M = 10;
 	private Button_cell[][] BT = new Button_cell[M][M];
 	private JPanel contentPane;
 	private Socket client;
@@ -52,9 +56,13 @@ public class GameRoom extends JFrame {
 	private JTextField textField;
 	private Timer timer;
 	private int sec;
-	
+	private Image imgO;
+	private Image imgX;
+	private JLabel lblNewLabel_1;
 
 	public GameRoom(Socket client, Player player) throws IOException {
+		imgO = ImageIO.read(getClass().getResource("o1.png"));
+		imgX = ImageIO.read(getClass().getResource("x1.png"));
 		Timer timer = new Timer();
 		this.client = client;
 		this.player = player;
@@ -94,6 +102,7 @@ public class GameRoom extends JFrame {
 			for (int j = 0; j < M; j++) {
 				int x = i, y = j;
 				Button_cell bt = new Button_cell();
+				bt.setIcon(new ImageIcon("image/border.jpg"));
 				bt.addActionListener(new ActionListener() {
 
 					@Override
@@ -102,9 +111,9 @@ public class GameRoom extends JFrame {
 							bt.cell.setVisited(true);
 							bt.cell.setValue(player.getValue());
 							if (bt.cell.getValue().equals("X")) {
-								bt.setIcon(new ImageIcon("C:\\DATA\\Client\\src\\view\\x1.png"));
+								bt.setIcon(new ImageIcon(imgX));
 							} else if (bt.cell.getValue().equals("O")) {
-								bt.setIcon(new ImageIcon("C:\\DATA\\Client\\src\\view\\o1.png"));
+								bt.setIcon(new ImageIcon(imgO));
 							}
 							setClick(false);
 							loading1.setIcon(null);
@@ -132,11 +141,12 @@ public class GameRoom extends JFrame {
 		panel.setLayout(new GridLayout(M, M, 1, 1));
 
 		me = new JButton("New button");
+		me.setIcon(new ImageIcon("image/" + player.getAvatar() + ".jpg"));
 		me.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		me.setBounds(93, 35, 85, 68);
+		me.setBounds(83, 10, 85, 68);
 		contentPane.add(me);
 
 		doithu = new JButton("New button");
@@ -144,7 +154,8 @@ public class GameRoom extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		doithu.setBounds(803, 37, 95, 65);
+
+		doithu.setBounds(801, 12, 95, 65);
 		contentPane.add(doithu);
 
 		JPanel panel_1 = new JPanel();
@@ -155,8 +166,8 @@ public class GameRoom extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, BorderLayout.CENTER);
 
-		 allsms = new JTextArea("");
-		 allsms.setEditable(false);
+		allsms = new JTextArea("");
+		allsms.setEditable(false);
 		scrollPane.setViewportView(allsms);
 
 		JPanel panel_2 = new JPanel();
@@ -173,10 +184,10 @@ public class GameRoom extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String mess = sms.getText();
 				System.out.println(mess);
-				if(mess != null) {
+				if (mess != null) {
 					try {
-						write("sms,"+mess);
-						allsms.setText(allsms.getText()+"\nTôi: "+mess);
+						write("sms," + mess);
+						allsms.setText(allsms.getText() + "\nTôi: " + mess);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -198,19 +209,17 @@ public class GameRoom extends JFrame {
 		luotdoithu.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		luotdoithu.setBounds(779, 132, 150, 19);
 		contentPane.add(luotdoithu);
-		
-		 
+
 		contentPane.add(loading2);
-		
-		 
+
 		contentPane.add(loading1);
-		
+
 		timebd = new JLabel("Thời gian thi đấu");
 		timebd.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		timebd.setHorizontalAlignment(SwingConstants.CENTER);
 		timebd.setBounds(370, 440, 128, 19);
 		contentPane.add(timebd);
-		
+
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setText("00:00");
@@ -219,7 +228,7 @@ public class GameRoom extends JFrame {
 		textField.setBounds(509, 440, 96, 19);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		JButton btnNewButton = new JButton("Đầu hàng");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -234,7 +243,7 @@ public class GameRoom extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton.setBounds(87, 266, 111, 27);
 		contentPane.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("Xin hòa");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -249,6 +258,19 @@ public class GameRoom extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(87, 327, 111, 21);
 		contentPane.add(btnNewButton_1);
+
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(93, 82, 70, 19);
+		lblNewLabel.setText(player.getName());
+		contentPane.add(lblNewLabel);
+
+		lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_1.setBounds(811, 87, 70, 19);
+		contentPane.add(lblNewLabel_1);
 		setluotdanh();
 		timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -256,8 +278,7 @@ public class GameRoom extends JFrame {
 			public void run() {
 				sec++;
 				// TODO Auto-generated method stub
-				textField.setText(((sec / 60) / 10) + "" + (sec / 60) % 10 + ":" + ((sec % 60) / 10)
-						+ (sec % 60 % 10));
+				textField.setText(((sec / 60) / 10) + "" + (sec / 60) % 10 + ":" + ((sec % 60) / 10) + (sec % 60 % 10));
 			}
 		}, 1000, 1000);
 		setVisible(true);
@@ -273,16 +294,15 @@ public class GameRoom extends JFrame {
 			BT[x][y].cell.setVisited(true);
 			if (player.getValue().equals("O")) {
 				BT[x][y].cell.setValue("X");
-				BT[x][y].setIcon(new ImageIcon("C:\\DATA\\Client\\src\\view\\x1.png"));
+				BT[x][y].setIcon(new ImageIcon(imgX));
 			} else if (player.getValue().equals("X")) {
 				BT[x][y].cell.setValue("O");
-				BT[x][y].setIcon(new ImageIcon("C:\\DATA\\Client\\src\\view\\o1.png"));
+				BT[x][y].setIcon(new ImageIcon(imgO));
 			}
 		}
 		setClick(true);
 		loading1.setIcon(new ImageIcon(GameRoom.class.getResource("/view/Ellipsis-1s-70px.gif")));
 		loading2.setIcon(null);
-
 
 		setluotdanh();
 	}
@@ -375,7 +395,6 @@ public class GameRoom extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 
@@ -383,16 +402,17 @@ public class GameRoom extends JFrame {
 		JOptionPane.showMessageDialog(null, "Bạn đã thua ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public void setplayer(String me, String doithu) {
-		this.me.setText(me);
-		this.doithu.setText(doithu);
+	public void setplayer(String name, String avt) {
+		doithu.setIcon(new ImageIcon("image/" + avt + ".jpg"));
+		lblNewLabel_1.setText(name);
 	}
+
 	public void setluotdanh() {
-		if(click == true) {
+		if (click == true) {
 			this.denluotban.setText("Đến lượt bạn");
 			this.luotdoithu.setText("Đối thủ đang chờ");
 		}
-		if(click == false) {
+		if (click == false) {
 			this.denluotban.setText("Đến lượt đối thủ");
 			this.luotdoithu.setText("Đối thủ đang đánh");
 
@@ -401,8 +421,9 @@ public class GameRoom extends JFrame {
 
 	public void setsms(String string) {
 		// TODO Auto-generated method stub
-		allsms.setText(allsms.getText()+"\nĐối thủ: "+string);
+		allsms.setText(allsms.getText() + "\nĐối thủ: " + string);
 	}
+
 	public void end() {
 		JOptionPane.showMessageDialog(null, "Đối thủ đã thoát trận, bạn đã thắng", "Thông báo",
 				JOptionPane.INFORMATION_MESSAGE);
