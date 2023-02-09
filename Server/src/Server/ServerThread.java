@@ -139,6 +139,7 @@ public class ServerThread implements Runnable {
 				}
 
 				if (messageSplit[0].equals("join-room")) {
+					int i = 0;
 					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
 						if (this != serverThread && serverThread.isRoom == true
 								&& serverThread.getID_ROOM() == Integer.parseInt(messageSplit[1])&&serverThread.roomfull == false) {
@@ -149,9 +150,12 @@ public class ServerThread implements Runnable {
 							
 							Server.serverThreadBus.sendto(serverThread, "doi-thu-join-room," + this.getName()+","+this.avatar);
 							this.write("me-join-room," + getID_ROOM() + "," + serverThread.getName()+","+serverThread.avatar);
+							i++;
 
 						}
+							
 					}
+					if(i==0)write("khong-ton-tai");
 
 				}
 				if (messageSplit[0].equals("exit")) {
@@ -250,6 +254,20 @@ public class ServerThread implements Runnable {
 							serverThread.write("doi-thu-da-thoat-game");
 							serverThread.roomfull = false;
 							serverThread.run = false;
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+			}
+			if(this.run == false) {
+				for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
+					if (this != serverThread && serverThread.isRoom == true
+							&& serverThread.getID_ROOM() == this.getID_ROOM()) {
+						try {
+							serverThread.write("doi-thu-da-thoat");
+							serverThread.roomfull = false;
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

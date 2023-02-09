@@ -37,10 +37,9 @@ public class InRoom extends JFrame {
 	private JLabel lblNewLabel;
 	private JButton btnNewButton_1;
 	private boolean first;
-	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
+	private JButton btnNewButton_2;
 
 	public InRoom(Socket client, Player player) {
 		this.client = client;
@@ -71,30 +70,27 @@ public class InRoom extends JFrame {
 		lblNewLabel.setBounds(150, 10, 132, 13);
 		panel.add(lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("avt1");
-		lblNewLabel_1.setIcon(new ImageIcon("image/"+player.getAvatar()+".jpg"));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(10, 45, 93, 85);
-		panel.add(lblNewLabel_1);
-		
 		lblNewLabel_2 = new JLabel("<name>\r\n");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2.setBounds(20, 144, 64, 13);
 		lblNewLabel_2.setText(player.getName());
 		panel.add(lblNewLabel_2);
 		
-		
-		lblNewLabel_3 = new JLabel("avt2");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(323, 45, 93, 85);
-		lblNewLabel_3.setText("Trống");
-		panel.add(lblNewLabel_3);
-		
 		lblNewLabel_4 = new JLabel("<name>\r\n");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_4.setBounds(333, 144, 64, 13);
 		lblNewLabel_4.setText(null);
 		panel.add(lblNewLabel_4);
+		
+		  btnNewButton_2 = new JButton("");
+		btnNewButton_2.setBounds(312, 26, 85, 85);
+		panel.add(btnNewButton_2);
+		
+		JButton btnNewButton_2_1 = new JButton("New button");
+		btnNewButton_2_1.setBounds(20, 26, 85, 85);
+		btnNewButton_2_1.setIcon(new ImageIcon("image/"+player.getAvatar()+".jpg"));
+		panel.add(btnNewButton_2_1);
+		
 
 		JPanel panel_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
@@ -140,7 +136,7 @@ public class InRoom extends JFrame {
 	}
 
 	public void setplayer1(String user,String avt) {
-		lblNewLabel_3.setIcon(new ImageIcon("image/"+avt+".jpg"));
+		btnNewButton_2.setIcon(new ImageIcon("image/"+avt+".jpg"));
 		lblNewLabel_4.setText(user);
 		btnNewButton.setEnabled(true);
 		
@@ -151,12 +147,12 @@ public class InRoom extends JFrame {
 	}
 	public void setplayer2(String user,String avt) {
 		lblNewLabel_4.setText(user);
-		lblNewLabel_3.setIcon(new ImageIcon("image/"+avt+".jpg"));
+		btnNewButton_2.setIcon(new ImageIcon("image/"+avt+".jpg"));
 		btnNewButton.setVisible(false);
 	}
 	public void exitroom() {
-		lblNewLabel_3.setIcon(null);
-		lblNewLabel_4.setText("Trống");
+		btnNewButton_2.setIcon(null);
+		lblNewLabel_4.setText(null);
 		btnNewButton.setVisible(true);
 		btnNewButton.setEnabled(false);
 	}

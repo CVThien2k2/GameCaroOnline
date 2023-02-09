@@ -75,6 +75,10 @@ public class Client {
 								player = new Player(messageSplit[1], "No", ID,messageSplit[3]);
 								viewonline = new Home(client, player);
 							}
+							if (messageSplit[0].equals("khong-ton-tai")) {
+								JOptionPane.showMessageDialog(null, "không tồn tại phòng", "Thông báo",
+										JOptionPane.INFORMATION_MESSAGE);
+							}
 							if (messageSplit[0].equals("create-success")) {
 								viewonline.setVisible(false);
 								inroom = new InRoom(client,player);
@@ -86,7 +90,7 @@ public class Client {
 								inroom.SetIDRoom(messageSplit[1]);
 							}
 							if (messageSplit[0].equals("doi-thu-join-room")) {
-								inroom.setplayer1(messageSplit[1],messageSplit[1]);
+								inroom.setplayer1(messageSplit[1],messageSplit[2]);
 								System.out.println("Doi thu vao room");
 							}
 			

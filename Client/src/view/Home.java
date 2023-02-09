@@ -51,7 +51,7 @@ public class Home extends JFrame {
 	public Home(Socket client, Player player) {
 		this.client = client;
 		this.player = player;
-		ld = new Load();
+
 		try {
 			this.os = new DataOutputStream(client.getOutputStream());
 		} catch (IOException e) {
@@ -133,9 +133,10 @@ public class Home extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					ld = new Load(client);
 
 					ld.setVisible(true);
-					ld.setLocationRelativeTo(panel_2);
+					ld.setLocationRelativeTo(panel_1);
 
 					ld.btnNewButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -164,7 +165,7 @@ public class Home extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					write("create-room");
-					
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -179,8 +180,8 @@ public class Home extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String idroom = JOptionPane.showInputDialog("Nhập id phòng");
 				try {
-					System.out.println("join-room,"+idroom);
-					write("join-room,"+idroom);
+					System.out.println("join-room," + idroom);
+					write("join-room," + idroom);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -220,6 +221,9 @@ public class Home extends JFrame {
 	}
 
 	public void closeld() {
-		ld.dispose();
+		if (ld != null) {
+			ld.close();
+			ld.dispose();
+		}
 	}
 }
