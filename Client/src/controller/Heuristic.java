@@ -1,6 +1,6 @@
-package model;
+package controller;
 
-public class HeuristicModel {
+public class Heuristic {
 	private static int N=20;
 
 	//Hàm tính tỉ số điểm giữa Máy trên Người chơi

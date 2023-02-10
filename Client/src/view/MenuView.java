@@ -100,8 +100,8 @@ public class MenuView extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1.setBackground(new Color(240, 240, 240));
 		lblNewLabel_1.setForeground(new Color(191, 238, 255));
-		lblNewLabel_1.setFont(new Font("French Script MT", Font.BOLD, 40));
-		lblNewLabel_1.setBounds(66, 212, 178, 46);
+		lblNewLabel_1.setFont(new Font(".Vn3DH", lblNewLabel_1.getFont().getStyle() | Font.BOLD, lblNewLabel_1.getFont().getSize() + 14));
+		lblNewLabel_1.setBounds(18, 220, 253, 46);
 		panel_1.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Game Online");

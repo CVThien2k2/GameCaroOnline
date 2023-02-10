@@ -59,8 +59,9 @@ public class Home extends JFrame {
 			e.printStackTrace();
 		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(734, 530);
+		setSize(777, 557);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(71, 141, 141));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -69,67 +70,77 @@ public class Home extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(192, 192, 192));
-		panel_1.setBounds(20, 10, 679, 217);
+		panel_1.setBackground(new Color(83, 168, 168));
+		panel_1.setBounds(242, 11, 510, 193);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("avt");
+		lblNewLabel_2.setBounds(54, 85, 95, 83);
 		lblNewLabel_2.setBackground(new Color(64, 128, 128));
 		lblNewLabel_2.setIcon(new ImageIcon("image/" + player.getAvatar() + ".jpg"));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(118, 75, 95, 83);
 		panel_1.add(lblNewLabel_2);
 
 		JLabel lblNewLabel = new JLabel("Tên người chơi: ");
-		lblNewLabel.setBounds(291, 52, 111, 17);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(140, 52, 127, 17);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		panel_1.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel(" ID     : ");
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setBounds(326, 95, 69, 19);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(326, 95, 55, 19);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		panel_1.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_3 = new JLabel("<Name>");
+		lblNewLabel_3.setForeground(new Color(255, 255, 255));
+		lblNewLabel_3.setBounds(290, 53, 95, 17);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3.setBounds(398, 52, 95, 17);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		panel_1.add(lblNewLabel_3);
 		lblNewLabel_3.setText(player.getName());
 
 		JLabel lblNewLabel_1_1 = new JLabel("<id>");
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setBounds(424, 95, 36, 19);
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		panel_1.add(lblNewLabel_1_1);
 		lblNewLabel_1_1.setText(player.getID() + "");
 
 		JLabel lblNewLabel_4 = new JLabel("Server :");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4.setBounds(326, 145, 59, 13);
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4.setBounds(326, 140, 69, 23);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		panel_1.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Asia");
+		lblNewLabel_4_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4_1.setBounds(412, 140, 59, 23);
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4_1.setBounds(412, 145, 59, 13);
+		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		panel_1.add(lblNewLabel_4_1);
 
 		JLabel lblNewLabel_5 = new JLabel("Thông tin người chơi");
+		lblNewLabel_5.setForeground(new Color(255, 255, 255));
+		lblNewLabel_5.setBounds(169, 11, 196, 23);
 		lblNewLabel_5.setBackground(new Color(128, 128, 128));
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(253, 10, 173, 23);
 		panel_1.add(lblNewLabel_5);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(20, 369, 679, 114);
+		panel_2.setBackground(new Color(83, 168, 168));
+		panel_2.setBounds(242, 336, 510, 173);
 		contentPane.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 2, 15, 15));
 
-		JButton btnNewButton_2 = new JButton("Chơi ngay");
+		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setBackground(new Color(125, 191, 191));
+		btnNewButton_2.setBounds(178, 104, 168, 58);
+		btnNewButton_2.setIcon(new ImageIcon("src/view/button_ChoingayOnline_170x60.png"));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -157,10 +168,14 @@ public class Home extends JFrame {
 				}
 			}
 		});
+		panel_2.setLayout(null);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_2.add(btnNewButton_2);
 
-		JButton btnNewButton_1 = new JButton("Tạo phòng");
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setBackground(new Color(83, 168, 168));
+		btnNewButton_1.setBounds(320, 29, 168, 49);
+		btnNewButton_1.setIcon(new ImageIcon("src/view/button_Taophong_167x60.png"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -175,7 +190,11 @@ public class Home extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_2.add(btnNewButton_1);
 
-		JButton btnNewButton = new JButton("Vào phòng");
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setBackground(new Color(83, 168, 168));
+		btnNewButton.setForeground(new Color(125, 191, 191));
+		btnNewButton.setBounds(37, 29, 168, 49);
+		btnNewButton.setIcon(new ImageIcon("src/view/button_vaophong_167x60.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String idroom = JOptionPane.showInputDialog("Nhập id phòng");
@@ -191,27 +210,52 @@ public class Home extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_2.add(btnNewButton);
 
-		JButton btnNewButton_3 = new JButton("Thoát");
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBounds(242, 215, 510, 65);
+		contentPane.add(textArea);
+
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setBounds(242, 291, 440, 34);
+		contentPane.add(textArea_1);
+
+		JButton btnNewButton_4 = new JButton("Gửi");
+		btnNewButton_4.setBounds(692, 291, 60, 34);
+		contentPane.add(btnNewButton_4);
+		
+		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.setBackground(new Color(71, 141, 141));
+		btnNewButton_3.setBounds(36, 427, 159, 54);
+		contentPane.add(btnNewButton_3);
+		btnNewButton_3.setIcon(new ImageIcon("src/view/button_thoatonline_137x53.png"));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_2.add(btnNewButton_3);
-
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setBounds(20, 237, 679, 78);
-		contentPane.add(textArea);
-
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(20, 325, 609, 34);
-		contentPane.add(textArea_1);
-
-		JButton btnNewButton_4 = new JButton("Gửi");
-		btnNewButton_4.setBounds(639, 325, 60, 34);
-		contentPane.add(btnNewButton_4);
+		
+		JLabel lblIconsXO_1 = new JLabel("");
+		lblIconsXO_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIconsXO_1.setBounds(20, 11, 199, 177);
+		lblIconsXO_1.setIcon(new ImageIcon("src/view/IconsXO_200x200.png"));
+		contentPane.add(lblIconsXO_1);
+		
+		JLabel lblGame = new JLabel("Game");
+		lblGame.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGame.setForeground(new Color(255, 244, 245));
+		lblGame.setFont(new Font("Segoe Print", Font.BOLD, 28));
+		lblGame.setBounds(10, 229, 101, 45);
+		contentPane.add(lblGame);
+		
+		JLabel lblOnline = new JLabel("Online");
+		lblOnline.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnline.setForeground(new Color(255, 244, 245));
+		lblOnline.setFont(new Font("Segoe Script", Font.BOLD, 43));
+		lblOnline.setBackground(new Color(191, 238, 255));
+		lblOnline.setBounds(36, 271, 183, 54);
+		contentPane.add(lblOnline);
+		
 		setVisible(true);
 	}
 

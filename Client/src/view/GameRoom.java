@@ -69,12 +69,12 @@ public class GameRoom extends JFrame {
 		System.out.println(player.getValue());
 		loading2 = new JLabel("");
 		loading2.setHorizontalAlignment(SwingConstants.CENTER);
-		loading2.setBounds(815, 178, 70, 70);
+		loading2.setBounds(815, 175, 70, 70);
 
 		loading1 = new JLabel("");
-		loading1.setBackground(Color.WHITE);
+		loading1.setBackground(new Color(255, 255, 255));
 		loading1.setHorizontalAlignment(SwingConstants.CENTER);
-		loading1.setBounds(98, 165, 70, 70);
+		loading1.setBounds(98, 175, 70, 70);
 
 		if (player.getValue().equals("X")) {
 			click = true;
@@ -90,7 +90,7 @@ public class GameRoom extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setBackground(new Color(83, 168, 168));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -146,7 +146,7 @@ public class GameRoom extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		me.setBounds(83, 10, 85, 68);
+		me.setBounds(83, 10, 95, 83);
 		contentPane.add(me);
 
 		doithu = new JButton("New button");
@@ -155,7 +155,7 @@ public class GameRoom extends JFrame {
 			}
 		});
 
-		doithu.setBounds(801, 12, 95, 65);
+		doithu.setBounds(801, 10, 95, 83);
 		contentPane.add(doithu);
 
 		JPanel panel_1 = new JPanel();
@@ -199,15 +199,17 @@ public class GameRoom extends JFrame {
 		panel_2.add(sendsms, BorderLayout.WEST);
 
 		denluotban = new JLabel("New label");
+		denluotban.setForeground(new Color(255, 255, 255));
 		denluotban.setHorizontalAlignment(SwingConstants.CENTER);
-		denluotban.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		denluotban.setBounds(70, 128, 128, 27);
+		denluotban.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		denluotban.setBounds(48, 135, 173, 27);
 		contentPane.add(denluotban);
 
 		luotdoithu = new JLabel("New label");
+		luotdoithu.setForeground(new Color(255, 255, 255));
 		luotdoithu.setHorizontalAlignment(SwingConstants.CENTER);
-		luotdoithu.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		luotdoithu.setBounds(779, 132, 150, 19);
+		luotdoithu.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		luotdoithu.setBounds(766, 135, 173, 27);
 		contentPane.add(luotdoithu);
 
 		contentPane.add(loading2);
@@ -215,9 +217,10 @@ public class GameRoom extends JFrame {
 		contentPane.add(loading1);
 
 		timebd = new JLabel("Thời gian thi đấu");
-		timebd.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		timebd.setForeground(new Color(255, 255, 255));
+		timebd.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		timebd.setHorizontalAlignment(SwingConstants.CENTER);
-		timebd.setBounds(370, 440, 128, 19);
+		timebd.setBounds(358, 440, 140, 19);
 		contentPane.add(timebd);
 
 		textField = new JTextField();
@@ -229,7 +232,9 @@ public class GameRoom extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 
-		JButton btnNewButton = new JButton("Đầu hàng");
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setBackground(new Color(83, 168, 168));
+		btnNewButton.setIcon(new ImageIcon("src/view/button_Dauhang_109x42.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -241,10 +246,12 @@ public class GameRoom extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton.setBounds(87, 266, 111, 27);
+		btnNewButton.setBounds(79, 271, 112, 43);
 		contentPane.add(btnNewButton);
 
-		JButton btnNewButton_1 = new JButton("Xin hòa");
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setBackground(new Color(83, 168, 168));
+		btnNewButton_1.setIcon(new ImageIcon("src/view/button_Xinhoa_109x42.png"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -256,20 +263,22 @@ public class GameRoom extends JFrame {
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(87, 327, 111, 21);
+		btnNewButton_1.setBounds(79, 330, 112, 42);
 		contentPane.add(btnNewButton_1);
 
 		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(93, 82, 70, 19);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setBounds(83, 110, 95, 19);
 		lblNewLabel.setText(player.getName());
 		contentPane.add(lblNewLabel);
 
 		lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(811, 87, 70, 19);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(801, 110, 95, 19);
 		contentPane.add(lblNewLabel_1);
 		setluotdanh();
 		timer.scheduleAtFixedRate(new TimerTask() {

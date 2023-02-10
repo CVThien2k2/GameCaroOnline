@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.Button_cell;
-import model.HeuristicModel;
-import model.AlphaBetaModel;
+import controller.Heuristic;
+import controller.AlphaBeta;
 
 import javax.swing.JOptionPane;
 
@@ -43,7 +43,7 @@ public class OnePlayerView extends JFrame {
     private boolean ST = false;
     private int sec = 0;
     
-    AlphaBetaModel alphaBetaModel = new AlphaBetaModel();
+    AlphaBeta alphaBeta = new AlphaBeta();
     public static final int winScore = 100000000;
 	public static final int Machine_WIN = 1;
 	public static final int Player_WIN = -1;
@@ -95,7 +95,7 @@ public class OnePlayerView extends JFrame {
 		contentPane.add(tictactoe);
 		
 		JLabel lblgameCaro = new JLabel("Game Caro");
-		lblgameCaro.setForeground(new Color(242, 231, 252));
+		lblgameCaro.setForeground(Color.WHITE);
 		lblgameCaro.setFont(new Font(".VnCooperH", Font.PLAIN, 20));
 		lblgameCaro.setBounds(90, 31, 152, 44);
 		contentPane.add(lblgameCaro);
@@ -107,13 +107,13 @@ public class OnePlayerView extends JFrame {
 		contentPane.add(lblIconsXO);
 		
 		JLabel lblChoivsMay = new JLabel("Chơi với máy");
-		lblChoivsMay.setForeground(new Color(242, 231, 252));
+		lblChoivsMay.setForeground(new Color(255, 255, 255));
 		lblChoivsMay.setFont(new Font("Space Mono", Font.BOLD, 16));
 		lblChoivsMay.setBounds(96, 96, 131, 28);
 		contentPane.add(lblChoivsMay);
 		
 		JLabel lblOffline = new JLabel("Offline");
-		lblOffline.setForeground(new Color(242, 231, 252));
+		lblOffline.setForeground(Color.WHITE);
 		lblOffline.setFont(new Font("Space Mono", Font.BOLD, 16));
 		lblOffline.setBounds(124, 69, 76, 28);
 		contentPane.add(lblOffline);
@@ -203,7 +203,7 @@ public class OnePlayerView extends JFrame {
 							
 							
 							//CalculateNextMove: Hàm tìm nước đánh tốt nhất cho Máy 
-							int[] nextMove = AlphaBetaModel.calculateNextMove(markPlayer, depth);
+							int[] nextMove = AlphaBeta.calculateNextMove(markPlayer, depth);
 							
 							if(nextMove[0]!=-1 && nextMove[1]!=-1) {
 								changePos("O", buttonCellModel[nextMove[0]][nextMove[1]],nextMove[0],nextMove[1]);
@@ -416,9 +416,9 @@ public class OnePlayerView extends JFrame {
 		//Hàm kiểm tra xem hết trận đấu chưa, cụ thể là đã thắng hòa hay thua chưa. (True là đã hết || False là chưa hết)
 		public int checkWin(int[][] arr, int count) {	
 			
-			if(HeuristicModel.getScore(arr,1,-1) >= winScore) return Machine_WIN;	
+			if(Heuristic.getScore(arr,1,-1) >= winScore) return Machine_WIN;	
 
-			else if (HeuristicModel.getScore(arr,-1,1) >= winScore) return Player_WIN;
+			else if (Heuristic.getScore(arr,-1,1) >= winScore) return Player_WIN;
 			
 			else if (count==N*N) return ST_DRAW;
 			

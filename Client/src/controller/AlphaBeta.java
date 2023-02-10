@@ -1,8 +1,8 @@
-package model;
+package controller;
 
 import java.util.ArrayList;
 
-public class AlphaBetaModel {
+public class AlphaBeta {
 	private static final int winScore=100000000;
 	private static final int N=20;
 	private static final int K=5;
@@ -38,7 +38,7 @@ public class AlphaBetaModel {
 		for(int[] move : allPossibleMoves) {
 			int[][] nextArr = addToTable(move[0], move[1], 1, arr);//Sao chép sang mảng mới và thêm nước đi mới cho Máy
 				
-			if(HeuristicModel.getScore(nextArr,1,-1) >= winScore) {//Nếu nước đi vừa duyệt là Máy thắng thì trả về vị trí đó
+			if(Heuristic.getScore(nextArr,1,-1) >= winScore) {//Nếu nước đi vừa duyệt là Máy thắng thì trả về vị trí đó
 				winningMove[0] = move[0];
 				winningMove[1] = move[1]; 
 				return winningMove;
@@ -57,7 +57,7 @@ public class AlphaBetaModel {
 		for(int[] move : allPossibleMoves) {
 			int[][] nextArr = addToTable(move[0], move[1], -1, arr);//Sao chép sang mảng mới và thêm nước đi mới cho Người chơi
 			
-			if (HeuristicModel.getScore(nextArr,-1,1) >= winScore) {//Nếu nước đi vừa duyệt là Người chơi thắng thì trả về vị trí đó
+			if (Heuristic.getScore(nextArr,-1,1) >= winScore) {//Nếu nước đi vừa duyệt là Người chơi thắng thì trả về vị trí đó
 				losingMove[0] = move[0];
 				losingMove[1] = move[1];
 				return losingMove;
@@ -74,7 +74,7 @@ public class AlphaBetaModel {
 	public static double[] alphaBeta(int depth ,int[][] arr, int turn, double alpha, double beta) {
 	
 		if(depth == 0) {//Nếu độ xâu là 0 thì trả về điểm nước cờ đó theo hàm scoreBetweenTwoPlayers		
-			double[] x = {-1, -1, HeuristicModel.scoreBetweenTwoPlayers(arr, turn)};
+			double[] x = {-1, -1, Heuristic.scoreBetweenTwoPlayers(arr, turn)};
 			return x;								
 		}
 		
@@ -82,7 +82,7 @@ public class AlphaBetaModel {
 		
 		//Nếu đã đánh kín bàn cờ, k còn ô để duyệt
 		if(allPossibleMoves.size() == 0) {
-			double[] x = {-1, -1, HeuristicModel.scoreBetweenTwoPlayers(arr, turn)};
+			double[] x = {-1, -1, Heuristic.scoreBetweenTwoPlayers(arr, turn)};
 			return x;
 		}
 		
