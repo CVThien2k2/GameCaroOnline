@@ -122,7 +122,7 @@ public class ServerThread implements Runnable {
 				if (messageSplit[0].equals("win")) {
 					for (ServerThread serverThread : Server.serverThreadBus.getListServerThreads()) {
 						if (serverThread.getClientNumber() != getClientNumber()) {
-							serverThread.write("lose");
+							serverThread.write("lose,"+messageSplit[1]+","+messageSplit[2]+","+messageSplit[3]);
 							this.run = false;
 							serverThread.run = false;
 							
@@ -242,6 +242,13 @@ public class ServerThread implements Runnable {
 							serverThread.write("khong-hoa");
 						}
 					}
+				}
+				if (messageSplit[0].equals("chat-server")) {
+					String sms = "chat-server,"+this.name+": ";
+					for(int i=1; i<messageSplit.length;i++) {
+						sms+= ","+messageSplit[i];
+					}
+					Server.serverThreadBus.SendAll(sms);
 				}
 				
 			}

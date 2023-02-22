@@ -47,6 +47,8 @@ public class Home extends JFrame {
 	private DataOutputStream os;
 	private Player player;
 	private Load ld;
+	private JTextField textField;
+	private JTextArea textArea;
 
 	public Home(Socket client, Player player) {
 		this.client = client;
@@ -76,7 +78,7 @@ public class Home extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("avt");
-		lblNewLabel_2.setBounds(54, 85, 95, 83);
+		lblNewLabel_2.setBounds(88, 66, 95, 83);
 		lblNewLabel_2.setBackground(new Color(64, 128, 128));
 		lblNewLabel_2.setIcon(new ImageIcon("image/" + player.getAvatar() + ".jpg"));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,22 +86,22 @@ public class Home extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Tên người chơi: ");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(140, 52, 127, 17);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel.setBounds(217, 52, 166, 17);
+		lblNewLabel.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		panel_1.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel(" ID     : ");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setBounds(326, 95, 69, 19);
+		lblNewLabel_1.setBounds(263, 95, 120, 19);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_1.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		panel_1.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_3 = new JLabel("<Name>");
 		lblNewLabel_3.setForeground(new Color(255, 255, 255));
-		lblNewLabel_3.setBounds(290, 53, 95, 17);
+		lblNewLabel_3.setBounds(380, 53, 120, 17);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_3.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		panel_1.add(lblNewLabel_3);
 		lblNewLabel_3.setText(player.getName());
 
@@ -107,28 +109,28 @@ public class Home extends JFrame {
 		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setBounds(424, 95, 36, 19);
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_1_1.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		panel_1.add(lblNewLabel_1_1);
 		lblNewLabel_1_1.setText(player.getID() + "");
 
 		JLabel lblNewLabel_4 = new JLabel("Server :");
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4.setBounds(326, 140, 69, 23);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_4.setBounds(275, 140, 95, 23);
+		lblNewLabel_4.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		panel_1.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Asia");
 		lblNewLabel_4_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4_1.setBounds(412, 140, 59, 23);
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_4_1.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		panel_1.add(lblNewLabel_4_1);
 
 		JLabel lblNewLabel_5 = new JLabel("Thông tin người chơi");
 		lblNewLabel_5.setForeground(new Color(255, 255, 255));
-		lblNewLabel_5.setBounds(169, 11, 196, 23);
+		lblNewLabel_5.setBounds(147, 11, 215, 23);
 		lblNewLabel_5.setBackground(new Color(128, 128, 128));
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_5.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(lblNewLabel_5);
 
@@ -147,7 +149,8 @@ public class Home extends JFrame {
 					ld = new Load(client);
 
 					ld.setVisible(true);
-					ld.setLocationRelativeTo(panel_1);
+					ld.setLocationRelativeTo(contentPane);
+					
 
 					ld.btnNewButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -198,7 +201,7 @@ public class Home extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String idroom = JOptionPane.showInputDialog("Nhập id phòng");
-				try {
+				if(idroom != null)try {
 					System.out.println("join-room," + idroom);
 					write("join-room," + idroom);
 				} catch (IOException e1) {
@@ -210,16 +213,29 @@ public class Home extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_2.add(btnNewButton);
 
-		JTextArea textArea = new JTextArea();
+		  textArea = new JTextArea();
+		textArea.setText("              --------< Thông báo toàn Server>---------");
 		textArea.setEditable(false);
-		textArea.setBounds(242, 215, 510, 65);
+		textArea.setBounds(242, 216, 510, 65);
 		contentPane.add(textArea);
 
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(242, 291, 440, 34);
-		contentPane.add(textArea_1);
-
-		JButton btnNewButton_4 = new JButton("Gửi");
+		JButton btnNewButton_4 = new JButton("");
+		btnNewButton_4.setBackground(new Color(0, 128, 128));
+		btnNewButton_4.setIcon(new ImageIcon(Home.class.getResource("/icon/send.png")));
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String sms = textField.getText();
+				if(!sms.equals("")) {
+					textField.setText("");
+					try {
+						write("chat-server,"+sms);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		btnNewButton_4.setBounds(692, 291, 60, 34);
 		contentPane.add(btnNewButton_4);
 		
@@ -256,6 +272,15 @@ public class Home extends JFrame {
 		lblOnline.setBounds(36, 271, 183, 54);
 		contentPane.add(lblOnline);
 		
+		textField = new JTextField("");
+		textField.setBounds(242, 291, 440, 35);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(242, 216, 510, 65);
+		contentPane.add(scrollPane);
+		
 		setVisible(true);
 	}
 
@@ -269,5 +294,8 @@ public class Home extends JFrame {
 			ld.close();
 			ld.dispose();
 		}
+	}
+	public void SetChat(String sms) {
+		textArea.setText(textArea.getText()+"\n" + sms);
 	}
 }

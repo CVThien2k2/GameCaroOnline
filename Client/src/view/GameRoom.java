@@ -5,15 +5,29 @@ import java.util.TimerTask;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioPermission;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -61,9 +75,10 @@ public class GameRoom extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	public GameRoom(Socket client, Player player) throws IOException {
-		imgO = ImageIO.read(getClass().getResource("o1.png"));
-		imgX = ImageIO.read(getClass().getResource("x1.png"));
-		Timer timer = new Timer();
+		imgO = ImageIO.read(getClass().getResource("/icon/o2.jpg"));
+		imgX = ImageIO.read(getClass().getResource("/icon/x2.jpg"));
+		timer = new Timer();
+
 		this.client = client;
 		this.player = player;
 		System.out.println(player.getValue());
@@ -103,11 +118,57 @@ public class GameRoom extends JFrame {
 				int x = i, y = j;
 				Button_cell bt = new Button_cell();
 				bt.setIcon(new ImageIcon("image/border.jpg"));
+				bt.addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						if (bt.cell.getValue().equals("No")) {
+							bt.setIcon(new ImageIcon("image/border.jpg"));
+						}
+
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						if (bt.cell.getValue().equals("No") && click == false) {
+							bt.setIcon(new ImageIcon("image/border2.jpg"));
+						}
+						if (bt.cell.getValue().equals("No") && click == true) {
+							if (player.getValue().equals("X")) {
+								bt.setIcon(new ImageIcon(GameRoom.class.getResource("/icon/x2_pre.jpg")));
+							}
+							if (player.getValue().equals("O")) {
+								bt.setIcon(new ImageIcon(GameRoom.class.getResource("/icon/o2_pre.jpg")));
+							}
+						}
+					}
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+				});
 				bt.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (bt.cell.isVisited() == false && click == true) {
+							playSound();
 							bt.cell.setVisited(true);
 							bt.cell.setValue(player.getValue());
 							if (bt.cell.getValue().equals("X")) {
@@ -141,21 +202,23 @@ public class GameRoom extends JFrame {
 		panel.setLayout(new GridLayout(M, M, 1, 1));
 
 		me = new JButton("New button");
+		me.setBackground(new Color(0, 128, 128));
 		me.setIcon(new ImageIcon("image/" + player.getAvatar() + ".jpg"));
 		me.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		me.setBounds(83, 10, 95, 83);
+		me.setBounds(83, 10, 80, 90);
 		contentPane.add(me);
 
 		doithu = new JButton("New button");
+		doithu.setBackground(new Color(0, 128, 128));
 		doithu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 
-		doithu.setBounds(801, 10, 95, 83);
+		doithu.setBounds(801, 10, 80, 90);
 		contentPane.add(doithu);
 
 		JPanel panel_1 = new JPanel();
@@ -167,24 +230,31 @@ public class GameRoom extends JFrame {
 		panel_1.add(scrollPane, BorderLayout.CENTER);
 
 		allsms = new JTextArea("");
+		allsms.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 13));
 		allsms.setEditable(false);
 		scrollPane.setViewportView(allsms);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(0, 128, 128));
 		panel_2.setBounds(10, 391, 245, 49);
 		contentPane.add(panel_2);
-		panel_2.setLayout(new BorderLayout(10, 10));
+		panel_2.setLayout(null);
 
 		sms = new JTextField();
+		sms.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 10));
+		sms.setBounds(59, 0, 186, 49);
 		panel_2.add(sms);
 		sms.setColumns(10);
 
-		JButton sendsms = new JButton("SEND");
+		JButton sendsms = new JButton("");
+		sendsms.setBackground(new Color(0, 128, 128));
+		sendsms.setBounds(0, 0, 49, 49);
+		sendsms.setIcon(new ImageIcon(GameRoom.class.getResource("/icon/gui.png")));
 		sendsms.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String mess = sms.getText();
 				System.out.println(mess);
-				if (mess != null) {
+				if (!mess.trim().equals("")) {
 					try {
 						write("sms," + mess);
 						allsms.setText(allsms.getText() + "\nTôi: " + mess);
@@ -196,20 +266,20 @@ public class GameRoom extends JFrame {
 				sms.setText("");
 			}
 		});
-		panel_2.add(sendsms, BorderLayout.WEST);
+		panel_2.add(sendsms);
 
 		denluotban = new JLabel("New label");
 		denluotban.setForeground(new Color(255, 255, 255));
 		denluotban.setHorizontalAlignment(SwingConstants.CENTER);
-		denluotban.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		denluotban.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		denluotban.setBounds(48, 135, 173, 27);
 		contentPane.add(denluotban);
 
 		luotdoithu = new JLabel("New label");
 		luotdoithu.setForeground(new Color(255, 255, 255));
 		luotdoithu.setHorizontalAlignment(SwingConstants.CENTER);
-		luotdoithu.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		luotdoithu.setBounds(766, 135, 173, 27);
+		luotdoithu.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
+		luotdoithu.setBounds(765, 135, 173, 27);
 		contentPane.add(luotdoithu);
 
 		contentPane.add(loading2);
@@ -218,17 +288,17 @@ public class GameRoom extends JFrame {
 
 		timebd = new JLabel("Thời gian thi đấu");
 		timebd.setForeground(new Color(255, 255, 255));
-		timebd.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		timebd.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 16));
 		timebd.setHorizontalAlignment(SwingConstants.CENTER);
-		timebd.setBounds(358, 440, 140, 19);
+		timebd.setBounds(325, 440, 198, 19);
 		contentPane.add(timebd);
 
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setText("00:00");
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textField.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setBounds(509, 440, 96, 19);
+		textField.setBounds(533, 439, 96, 19);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
@@ -269,15 +339,15 @@ public class GameRoom extends JFrame {
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(83, 110, 95, 19);
+		lblNewLabel.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 16));
+		lblNewLabel.setBounds(28, 110, 193, 19);
 		lblNewLabel.setText(player.getName());
 		contentPane.add(lblNewLabel);
 
 		lblNewLabel_1 = new JLabel("New label");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 16));
 		lblNewLabel_1.setBounds(801, 110, 95, 19);
 		contentPane.add(lblNewLabel_1);
 		setluotdanh();
@@ -300,6 +370,7 @@ public class GameRoom extends JFrame {
 
 	public void setAttack(int x, int y) {
 		if (BT[x][y].cell.isVisited() == false) {
+			playSound();
 			BT[x][y].cell.setVisited(true);
 			if (player.getValue().equals("O")) {
 				BT[x][y].cell.setValue("X");
@@ -332,7 +403,14 @@ public class GameRoom extends JFrame {
 			if (cell.cell.getValue().equals(player.getValue())) {
 				count++;
 				if (count == 5) {
-					win();
+					for (int k = col; k > col - 5; k--) {
+						if (player.getValue().equals("X"))
+							BT[i][k].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+						if (player.getValue().equals("O"))
+							BT[i][k].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+					}
+
+					win(1, i, col);
 
 				}
 			} else {
@@ -347,7 +425,13 @@ public class GameRoom extends JFrame {
 			if (cell.cell.getValue().equals(player.getValue())) {
 				count++;
 				if (count == 5) {
-					win();
+					for (int k = row; k > row - 5; k--) {
+						if (player.getValue().equals("X"))
+							BT[k][j].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+						if (player.getValue().equals("O"))
+							BT[k][j].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+					}
+					win(2, row, j);
 				}
 			} else {
 				count = 0;
@@ -365,15 +449,22 @@ public class GameRoom extends JFrame {
 			if (cell.cell.getValue().equals(player.getValue())) {
 				count++;
 				if (count == 5) {
-					win();
+					int x = TopI, y = TopJ;
+					for (; x > TopI - 5 && TopJ - 5 < y; x--, y--) {
+						if (player.getValue().equals("X"))
+							BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+						if (player.getValue().equals("O"))
+							BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+					}
+
+					win(3, TopI, TopJ);
 				}
 			} else {
 				count = 0;
 			}
 		}
-
-		// Chéo phải
-		min = Math.min(i, j);
+		// cheophai
+		min = i;
 		TopI = i - min;
 		TopJ = j + min;
 		count = 0;
@@ -389,7 +480,14 @@ public class GameRoom extends JFrame {
 			if (cell.cell.getValue().equals(player.getValue())) {
 				count++;
 				if (count == 5) {
-					win();
+					int x = TopI, y = TopJ;
+					for (; x > TopI - 5 && TopJ + 5 > y; x--, y++) {
+						if (player.getValue().equals("X"))
+							BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+						if (player.getValue().equals("O"))
+							BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+					}
+					win(4, TopI, TopJ);
 				}
 			} else {
 				count = 0;
@@ -397,9 +495,11 @@ public class GameRoom extends JFrame {
 		}
 	}
 
-	public void win() {
+	public void win(int h, int x, int y) {
 		try {
-			write("win");
+			playSoundwin();
+			timer.cancel();
+			write("win," + h + "," + x + "," + y);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -407,7 +507,46 @@ public class GameRoom extends JFrame {
 
 	}
 
+	public void SetWin(int k, int i, int j) {
+		if (k == 1) {
+			for (int h = j; h > j - 5; h--) {
+				if (player.getValue().equals("O"))
+					BT[i][h].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+				if (player.getValue().equals("X"))
+					BT[i][h].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+			}
+		}
+		if (k == 2) {
+			for (int h = i; h > i - 5; h--) {
+				if (player.getValue().equals("O"))
+					BT[h][j].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+				if (player.getValue().equals("X"))
+					BT[h][j].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+			}
+		}
+		if (k == 3) {
+			int x = i, y = j;
+			for (; x > i - 5 && j - 5 < y; x--, y--) {
+				if (player.getValue().equals("O"))
+					BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+				if (player.getValue().equals("X"))
+					BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+			}
+		}
+		if (k == 4) {
+			int x = i, y = j;
+			for (; x > i - 5 && j + 5 > y; x--, y++) {
+				if (player.getValue().equals("O"))
+					BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/xwin.jpg")));
+				if (player.getValue().equals("X"))
+					BT[x][y].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/owin.jpg")));
+			}
+		}
+	}
+
 	public void lose() {
+		timer.cancel();
+		playSoundwin();
 		JOptionPane.showMessageDialog(null, "Bạn đã thua ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -434,7 +573,35 @@ public class GameRoom extends JFrame {
 	}
 
 	public void end() {
+		playSoundwin();
 		JOptionPane.showMessageDialog(null, "Đối thủ đã thoát trận, bạn đã thắng", "Thông báo",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
+
+	public void playSound() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/click.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+
+	public void playSoundwin() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/win.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+
 }

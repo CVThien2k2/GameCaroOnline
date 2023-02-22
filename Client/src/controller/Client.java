@@ -133,6 +133,8 @@ public class Client {
 
 							}
 							if (messageSplit[0].equals("lose")) {
+								
+								gameroom.SetWin(Integer.parseInt(messageSplit[1]), Integer.parseInt(messageSplit[2]),Integer.parseInt(messageSplit[3]));
 								gameroom.lose();
 								gameroom.dispose();
 								inroom.setVisible(true);
@@ -153,6 +155,13 @@ public class Client {
 							}
 							if(messageSplit[0].equals("sms")){
 								gameroom.setsms(messageSplit[1]);
+							}
+							if(messageSplit[0].equals("chat-server")){
+								String sms = "";
+								for(int i=1; i<messageSplit.length;i++) {
+									sms+= messageSplit[i]+" ";
+								}
+								viewonline.SetChat(sms);
 							}
 							if(messageSplit[0].equals("doi-thu-da-thoat-game")){
 								

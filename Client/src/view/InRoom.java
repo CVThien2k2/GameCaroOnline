@@ -19,12 +19,17 @@ import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 
 public class InRoom extends JFrame {
@@ -58,62 +63,96 @@ public class InRoom extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setBounds(5, 5, 426, 212);
+		panel.setBackground(new Color(255, 255, 255));
+		contentPane.add(panel);
 		panel.setLayout(null);
 
 		lblNewLabel = new JLabel("ID ROOM: ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setFont(new Font("Viner Hand ITC", Font.ITALIC, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(150, 10, 132, 13);
+		lblNewLabel.setBounds(150, 10, 132, 41);
 		panel.add(lblNewLabel);
 		
 		lblNewLabel_2 = new JLabel("<name>\r\n");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(20, 144, 64, 13);
+		lblNewLabel_2.setForeground(new Color(0, 0, 0));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 15));
+		lblNewLabel_2.setBounds(0, 126, 142, 21);
 		lblNewLabel_2.setText(player.getName());
 		panel.add(lblNewLabel_2);
 		
 		lblNewLabel_4 = new JLabel("<name>\r\n");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4.setBounds(333, 144, 64, 13);
+		lblNewLabel_4.setForeground(new Color(0, 0, 0));
+		lblNewLabel_4.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 15));
+		lblNewLabel_4.setBounds(288, 126, 138, 21);
 		lblNewLabel_4.setText(null);
 		panel.add(lblNewLabel_4);
 		
 		  btnNewButton_2 = new JButton("");
-		btnNewButton_2.setBounds(312, 26, 85, 85);
+		  btnNewButton_2.addActionListener(new ActionListener() {
+		  	public void actionPerformed(ActionEvent e) {
+		  	}
+		  });
+		  btnNewButton_2.setBackground(new Color(255, 255, 255));
+		  btnNewButton_2.setIcon(new ImageIcon(InRoom.class.getResource("/icon/user.png")));
+		btnNewButton_2.setBounds(312, 26, 80, 90);
 		panel.add(btnNewButton_2);
 		
 		JButton btnNewButton_2_1 = new JButton("New button");
-		btnNewButton_2_1.setBounds(20, 26, 85, 85);
+		btnNewButton_2_1.setBounds(36, 26, 80, 90);
 		btnNewButton_2_1.setIcon(new ImageIcon("image/"+player.getAvatar()+".jpg"));
 		panel.add(btnNewButton_2_1);
 		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon(InRoom.class.getResource("/icon/vs.png")));
+		lblNewLabel_1.setBounds(180, 61, 64, 64);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setIcon(new ImageIcon(InRoom.class.getResource("/icon/cross.png")));
+		lblNewLabel_3.setBounds(52, 170, 32, 32);
+		panel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setIcon(new ImageIcon(InRoom.class.getResource("/icon/o.png")));
+		lblNewLabel_5.setBounds(343, 170, 32, 32);
+		panel.add(lblNewLabel_5);
+		
 
 		JPanel panel_1 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
-		flowLayout.setHgap(120);
-		contentPane.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setBounds(5, 217, 426, 41);
+		panel_1.setBackground(new Color(192, 192, 192));
+		contentPane.add(panel_1);
 
-		btnNewButton = new JButton("Bắt đầu");
+		btnNewButton = new JButton("Start");
+		btnNewButton.setBackground(new Color(192, 192, 192));
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBounds(176, 7, 74, 26);
 		btnNewButton.setEnabled(false);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					write("start");
+					 playSound();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_1.setLayout(null);
+		btnNewButton.setFont(new Font("Viner Hand ITC", Font.ITALIC, 13));
 		panel_1.add(btnNewButton);
 		
-		btnNewButton_1 = new JButton("Exit");
+		btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(InRoom.class.getResource("/icon/logout.png")));
+		btnNewButton_1.setBackground(new Color(192, 192, 192));
+		btnNewButton_1.setBounds(384, 4, 32, 32);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -125,7 +164,7 @@ public class InRoom extends JFrame {
 				}
 			}
 		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnNewButton_1.setFont(new Font("Viner Hand ITC", Font.ITALIC, 11));
 		panel_1.add(btnNewButton_1);
 		setVisible(true);
 	}
@@ -136,6 +175,7 @@ public class InRoom extends JFrame {
 	}
 
 	public void setplayer1(String user,String avt) {
+		 playSound();
 		btnNewButton_2.setIcon(new ImageIcon("image/"+avt+".jpg"));
 		lblNewLabel_4.setText(user);
 		btnNewButton.setEnabled(true);
@@ -146,14 +186,27 @@ public class InRoom extends JFrame {
 		lblNewLabel.setText("ID ROOM: "+id);
 	}
 	public void setplayer2(String user,String avt) {
+		 playSound();
 		lblNewLabel_4.setText(user);
 		btnNewButton_2.setIcon(new ImageIcon("image/"+avt+".jpg"));
 		btnNewButton.setVisible(false);
 	}
 	public void exitroom() {
-		btnNewButton_2.setIcon(null);
+		 playSound();
+		btnNewButton_2.setIcon(new ImageIcon(InRoom.class.getResource("/icon/user.png")));
 		lblNewLabel_4.setText(null);
 		btnNewButton.setVisible(true);
 		btnNewButton.setEnabled(false);
 	}
+	 public void playSound() {
+	        try {
+	            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioInputStream);
+	            clip.start();
+	        } catch (Exception ex) {
+	            System.out.println("Error with playing sound.");
+	            ex.printStackTrace();
+	        }
+	    }
 }

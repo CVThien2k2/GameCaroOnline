@@ -47,7 +47,7 @@ public class Load extends JFrame {
 			e.printStackTrace();
 		}
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Load.class.getResource("/view/tic-tac-toe.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 455, 298);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,7 +67,8 @@ public class Load extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblNewLabel);
 
-		btnNewButton = new JButton("C");
+		btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(Load.class.getResource("/icon/logout.png")));
 		btnNewButton.setBounds(373, 198, 58, 38);
 		btnNewButton.setBackground(new Color(128, 128, 128));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -108,7 +109,7 @@ public class Load extends JFrame {
 					}
 					dispose();
 				}
-				 
+
 				pc = pc + 5;
 				if (count >= 0) {
 					if (count >= 10)

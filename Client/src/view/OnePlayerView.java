@@ -91,7 +91,7 @@ public class OnePlayerView extends JFrame {
 		tictactoe.setBackground(new Color(83, 168, 168));
 
 		tictactoe.setLayout(new GridLayout(N, N));
-		tictactoe.setBounds(241, 0, 675, 616);
+		tictactoe.setBounds(237, 22, 675, 616);
 		contentPane.add(tictactoe);
 		
 		JLabel lblgameCaro = new JLabel("Game Caro");
@@ -234,7 +234,6 @@ public class OnePlayerView extends JFrame {
 		bntQuaylai.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bntQuaylai.setBounds(31, 349, 188, 34);
 		Image imgRotate = img_Rotate;
-		bntQuaylai.setIcon(new ImageIcon(imgRotate));
 		contentPane.add(bntQuaylai);
 		
 		JLabel lblTrandaugiua = new JLabel("Trận đấu giữa:");

@@ -19,12 +19,7 @@ public class ServerView extends JFrame {
 	private JTextArea textArea;
 	private JTextArea dson;
 
-	/**
-	 * Launch the application.
-	 * 
-	 * 
-	 * /** Create the frame.
-	 */
+	
 	public ServerView() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -52,6 +52,7 @@ public class OfflineOnePlayerView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(220, 50, 900, 600);
 		this.setResizable(false);
+		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(83, 168, 168));

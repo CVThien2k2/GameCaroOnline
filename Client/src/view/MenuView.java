@@ -60,6 +60,7 @@ public class MenuView extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(220, 50, 900, 600);
+		setLocationRelativeTo(null);
 		//this.setResizable(false);
 		
 		contentPane = new JPanel();
