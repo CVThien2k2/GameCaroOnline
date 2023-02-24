@@ -41,34 +41,19 @@ public class PlayView3 extends JFrame {
 	private int sec = 0;
 
 	private JPanel contentPane;
-	private static final int M = 3;
-	private Button_cell[][] BTXO = new Button_cell[M][M];
+	private static final int N = 3;
+	private Button_cell[][] BTXO = new Button_cell[N][N];
 	private Player player1 = new Player("Player 1", "O"), player2 = new Player("Player 2", "X");
 	private Player PlayerCR;
-	private boolean ST = false;
+	private int ST = 0;
 	Timer timer = new Timer();
 	private JLabel lblNewLabel_2 = new JLabel("--");
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_8;
 	private JButton btnStart;
 	private JLabel lblNewLabel_4;
-	private Image imgX, imgO, img_IconsXO, img_Start, img_Stop, img_Continue, img_Reset, img_Exit, img_Home;
 	
 	public PlayView3() {
-		
-		try{
-            imgO = ImageIO.read(getClass().getResource("o1.png"));
-            imgX = ImageIO.read(getClass().getResource("x1.png"));
-            img_IconsXO = ImageIO.read(getClass().getResource("IconsXO_100x100.png"));
-            img_Start = ImageIO.read(getClass().getResource("buttonBatdau_114x38.png"));
-            img_Stop = ImageIO.read(getClass().getResource("buttonTamdung_114x38.png"));
-            img_Continue = ImageIO.read(getClass().getResource("buttonTieptuc_114x38.png"));
-            img_Reset = ImageIO.read(getClass().getResource("reset_50x50.png"));
-            img_Exit = ImageIO.read(getClass().getResource("exit_50x50.png"));
-            img_Home = ImageIO.read(getClass().getResource("home_50x50.png"));
-    	}catch (Exception e){
-            e.printStackTrace();
-    	}
 
 		Start();
 		setVisible(true);
@@ -87,64 +72,64 @@ public class PlayView3 extends JFrame {
 		JPanel tictactoe = new JPanel();
 		tictactoe.setBackground(new Color(83, 168, 168));
 
-		tictactoe.setLayout(new GridLayout(M, M,20,20));
-		tictactoe.setBounds(241, 0, 675, 616);
+		tictactoe.setLayout(new GridLayout(N, N,65,50));
+		tictactoe.setBounds(280, 30, 615, 590);
 		contentPane.add(tictactoe);
 
 		JLabel lblNewLabel_1 = new JLabel("Đến lượt: ");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(10, 224, 96, 22);
+		lblNewLabel_1.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(10, 224, 109, 22);
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(116, 227, 115, 19);
+		lblNewLabel_2.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(140, 227, 115, 19);
 		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Số lượt đã đánh: ");
 		lblNewLabel_3.setForeground(new Color(255, 255, 255));
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_3.setFont(new Font("Courier New", Font.BOLD, 16));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(10, 257, 118, 22);
+		lblNewLabel_3.setBounds(10, 257, 163, 22);
 		contentPane.add(lblNewLabel_3);
 
 		lblNewLabel_4 = new JLabel(clicked + "");
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4.setBounds(151, 258, 57, 20);
+		lblNewLabel_4.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_4.setBounds(180, 258, 57, 20);
 		contentPane.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Trận đấu giữa: ");
 		lblNewLabel_5.setForeground(new Color(255, 255, 255));
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(57, 420, 131, 28);
+		lblNewLabel_5.setBounds(63, 420, 131, 28);
 		contentPane.add(lblNewLabel_5);
 
 		lblNewLabel_6 = new JLabel(player1.getName() + " VS " + player2.getName());
 		lblNewLabel_6.setForeground(new Color(255, 255, 255));
 		lblNewLabel_6.setFont(new Font("Comforter", Font.BOLD, 26));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setBounds(0, 450, 242, 42);
+		lblNewLabel_6.setBounds(7, 450, 242, 42);
 		contentPane.add(lblNewLabel_6);
 
 		btnStart = new JButton("0");
 		btnStart.setForeground(new Color(83, 168, 168));
 		btnStart.setBackground(new Color(83, 168, 168));
 		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 5));
-		btnStart.setBounds(62, 500, 126, 40);
-		Image imgStart = img_Start;
-		btnStart.setIcon(new ImageIcon(imgStart));
+		btnStart.setBounds(68, 500, 126, 40);
+		btnStart.setIcon(new ImageIcon(PlayView3.class.getResource("/view/buttonBatdau_114x38.png")));
 
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cl = e.getActionCommand();
 
 				if (cl.equals("0")) {
-					ST = true;
+					ST = 1;
 					timer.scheduleAtFixedRate(new TimerTask() {
 
 						@Override
@@ -155,17 +140,15 @@ public class PlayView3 extends JFrame {
 									+ (sec % 60 % 10));
 						}
 					}, 1000, 1000);
-					Image imgStop = img_Stop;
-					btnStart.setIcon(new ImageIcon(imgStop));
+					btnStart.setIcon(new ImageIcon(PlayView3.class.getResource("/view/buttonTamdung_114x38.png")));
 					btnStart.setText("1");
 
 				} else if (cl.equals("2")) {
-					ST = true;
+					ST = 1;
 
 					timer.cancel();
 					timer = new Timer();
-					Image imgStop = img_Stop;
-					btnStart.setIcon(new ImageIcon(imgStop));
+					btnStart.setIcon(new ImageIcon(PlayView3.class.getResource("/view/buttonTamdung_114x38.png")));
 					timer.scheduleAtFixedRate(new TimerTask() {
 
 						@Override
@@ -177,13 +160,27 @@ public class PlayView3 extends JFrame {
 						}
 					}, 1000, 1000);
 					btnStart.setText("1");
+					
+					for (int i = 0; i < N; i++) {
+						for (int j = 0; j < N; j++) {
+							if (BTXO[i][j].cell.getValue().equals("O")) BTXO[i][j].setIcon(new ImageIcon("image/o2_150X150.jpg"));
+							else if (BTXO[i][j].cell.getValue().equals("X")) BTXO[i][j].setIcon(new ImageIcon("image/x2_150X150.jpg"));
+							else BTXO[i][j].setIcon(new ImageIcon("image/border_150X150.jpg"));
+						}
+					}
+					
 				} else if (cl.equals("1")) {
-					ST = false;
+					ST = 2;
 					timer.cancel();
-					Image imgContinue = img_Continue;
-					btnStart.setIcon(new ImageIcon(imgContinue));
+					btnStart.setIcon(new ImageIcon(PlayView3.class.getResource("/view/buttonTieptuc_114x38.png")));
 					btnStart.setText("2");
-
+					
+					for (int i = 0; i < N; i++) {
+						for (int j = 0; j < N; j++) {
+							BTXO[i][j].setIcon(new ImageIcon("image/border2_150x150.jpg"));
+						}
+					}
+					
 				}
 
 			}
@@ -191,24 +188,25 @@ public class PlayView3 extends JFrame {
 		contentPane.add(btnStart);
 
 		JLabel lblNewLabel_7 = new JLabel("Thời gian thi đấu");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setForeground(new Color(255, 255, 255));
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_7.setBounds(55, 290, 118, 22);
+		lblNewLabel_7.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_7.setBounds(30, 290, 204, 22);
 		contentPane.add(lblNewLabel_7);
 
 		lblNewLabel_8 = new JLabel("00:00");
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setForeground(new Color(255, 255, 255));
 		lblNewLabel_8.setBackground(new Color(192, 192, 192));
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_8.setBounds(90, 323, 65, 13);
+		lblNewLabel_8.setBounds(95, 323, 83, 13);
 		contentPane.add(lblNewLabel_8);
 
 		
 		
 		JLabel lblIconsXO = new JLabel("");
 		lblIconsXO.setBounds(0, 11, 85, 82);
-		Image imgIconsXO = img_IconsXO;
-		lblIconsXO.setIcon(new ImageIcon(imgIconsXO));
+		lblIconsXO.setIcon(new ImageIcon(PlayView3.class.getResource("/view/IconsXO_100x100.png")));
 		contentPane.add(lblIconsXO);
 		
 		JLabel lblgameCaro = new JLabel("Game Caro");
@@ -219,15 +217,15 @@ public class PlayView3 extends JFrame {
 		
 		JLabel lblOffline = new JLabel("Offline");
 		lblOffline.setForeground(new Color(255, 238, 240));
-		lblOffline.setFont(new Font("Space Mono", Font.BOLD, 16));
+		lblOffline.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 18));
 		lblOffline.setBounds(124, 69, 76, 28);
 		contentPane.add(lblOffline);
 		
 		JLabel lblChoivsMay = new JLabel("Hai người chơi");
 		lblChoivsMay.setBackground(new Color(255, 238, 240));
 		lblChoivsMay.setForeground(new Color(255, 238, 240));
-		lblChoivsMay.setFont(new Font("Space Mono", Font.BOLD, 16));
-		lblChoivsMay.setBounds(88, 96, 150, 28);
+		lblChoivsMay.setFont(new Font("Courier New", Font.BOLD, 19));
+		lblChoivsMay.setBounds(85, 96, 165, 28);
 		contentPane.add(lblChoivsMay);
 		
 		JLabel lblThongtinTrandau = new JLabel("Thông tin trận đấu");
@@ -240,9 +238,8 @@ public class PlayView3 extends JFrame {
 		JButton btnExit = new JButton("");
 		btnExit.setFont(new Font("Space Mono", Font.BOLD, 18));
 		btnExit.setBackground(new Color(83, 168, 168));
-		btnExit.setBounds(10, 562, 54, 54);
-		Image imgExit = img_Exit;
-		btnExit.setIcon(new ImageIcon(imgExit));
+		btnExit.setBounds(13, 562, 54, 54);
+		btnExit.setIcon(new ImageIcon(PlayView3.class.getResource("/view/exit_50x50.png")));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -253,9 +250,8 @@ public class PlayView3 extends JFrame {
 		JButton btnHome = new JButton("");
 		btnHome.setFont(new Font("Space Mono", Font.BOLD, 18));
 		btnHome.setBackground(new Color(83, 168, 168));
-		btnHome.setBounds(93, 562, 54, 54);
-		Image imgHome = img_Home;
-		btnHome.setIcon(new ImageIcon(imgHome));
+		btnHome.setBounds(96, 562, 54, 54);
+		btnHome.setIcon(new ImageIcon(PlayView3.class.getResource("/view/home_50x50.png")));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -267,9 +263,8 @@ public class PlayView3 extends JFrame {
 		JButton btnReset = new JButton("");
 		btnReset.setFont(new Font("Space Mono", Font.BOLD, 18));
 		btnReset.setBackground(new Color(83, 168, 168));
-		btnReset.setBounds(175, 562, 54, 54);
-		Image imgReset = img_Reset;
-		btnReset.setIcon(new ImageIcon(imgReset));
+		btnReset.setBounds(178, 562, 54, 54);
+		btnReset.setIcon(new ImageIcon(PlayView3.class.getResource("/view/reset_50x50.png")));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -278,11 +273,12 @@ public class PlayView3 extends JFrame {
 		});
 		contentPane.add(btnReset);
 
-		for (int i = 0; i < M; i++)
-			for (int j = 0; j < M; j++) {
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++) {
 				int x = i, y = j;
 				Button_cell bt = new Button_cell();
 				BTXO[i][j] = bt;
+				BTXO[i][j].setIcon(new ImageIcon("image/border_150x150.jpg"));
 				BTXO[i][j].addMouseListener(new MouseListener() {
 
 					@Override
@@ -300,28 +296,30 @@ public class PlayView3 extends JFrame {
 					@Override
 					public void mouseExited(MouseEvent e) {
 						// TODO Auto-generated method stub
-						bt.setBackground(Color.white);
+						if (BTXO[x][y].cell.isVisited()==false && ST==0) BTXO[x][y].setIcon(new ImageIcon("image/border_150x150.jpg"));				
+						if (BTXO[x][y].cell.isVisited()==false && ST==1) BTXO[x][y].setIcon(new ImageIcon("image/border_150x150.jpg"));		
 					}
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
 						// TODO Auto-generated method stub
-						bt.setBackground(null);
+						if (BTXO[x][y].cell.isVisited()==false && ST==0) BTXO[x][y].setIcon(new ImageIcon("image/border2_150x150.jpg"));
+						if (BTXO[x][y].cell.isVisited()==false && ST==1 && PlayerCR == player1) BTXO[x][y].setIcon(new ImageIcon("image/o2_pre_150x150.jpg"));
+						if (BTXO[x][y].cell.isVisited()==false && ST==1 && PlayerCR == player2) BTXO[x][y].setIcon(new ImageIcon("image/x2_pre_150x150.jpg"));
 					}
 
 					@Override
 					public void mousePressed(MouseEvent e) {
-						if (ST == true) {
+						if (ST == 1) {
 							// TODO Auto-generated method stub
 							if (bt.cell.isVisited() == false) {
 								if (PlayerCR == player1) {
 									clicked++;
-									Image img = imgO;
-									bt.setIcon(new ImageIcon(img));
+									bt.setIcon(new ImageIcon("image/o2_150X150.jpg"));
 									bt.cell.setValue("O");
 									bt.cell.setVisited(true);
 									checkWin5(x, y);
-									if (clicked == M * M) {
+									if (clicked == N * N) {
 										System.exit(0);
 									}
 									PlayerCR = player2;
@@ -330,13 +328,12 @@ public class PlayView3 extends JFrame {
 
 								} else if (PlayerCR == player2) {
 									clicked++;
-									Image img = imgX;
-									bt.setIcon(new ImageIcon(img));
+									bt.setIcon(new ImageIcon("image/x2_150X150.jpg"));
 									bt.cell.setValue("X");
 									bt.cell.setVisited(true);
 
 									checkWin5(x, y);
-									if (clicked == M * M) {
+									if (clicked == N * N) {
 										full();
 									}
 									setClick();
@@ -363,11 +360,17 @@ public class PlayView3 extends JFrame {
 	public void checkWin5(int i, int j) {
 		// Hang ngang
 		int count = 0;
-		for (int col = 0; col < M; col++) {
+		for (int col = 0; col < N; col++) {
 			Button_cell cell = BTXO[i][col];
 			if (cell.cell.getValue().equals(PlayerCR.getValue())) {
 				count++;
 				if (count == 3) {
+					for (int k = col; k > col - 3; k--) {
+						if (PlayerCR.getValue().equals("X"))
+							BTXO[i][k].setIcon(new ImageIcon("image/xwin_150x150.jpg"));
+						if (PlayerCR.getValue().equals("O"))
+							BTXO[i][k].setIcon(new ImageIcon("image/owin_150x150.jpg"));
+					}
 					choose();
 
 				}
@@ -378,11 +381,17 @@ public class PlayView3 extends JFrame {
 
 		// Chiều dọc
 		count = 0;
-		for (int row = 0; row < M; row++) {
+		for (int row = 0; row < N; row++) {
 			Button_cell cell = BTXO[row][j];
 			if (cell.cell.getValue().equals(PlayerCR.getValue())) {
 				count++;
 				if (count == 3) {
+					for (int k = row; k > row - 3; k--) {
+						if (PlayerCR.getValue().equals("X"))
+							BTXO[k][j].setIcon(new ImageIcon("image/xwin_150x150.jpg"));
+						if (PlayerCR.getValue().equals("O"))
+							BTXO[k][j].setIcon(new ImageIcon("image/owin_150x150.jpg"));
+					}
 					choose();
 				}
 			} else {
@@ -396,11 +405,18 @@ public class PlayView3 extends JFrame {
 		int TopJ = j - min;
 		count = 0;
 
-		for (; TopI < M && TopJ < M; TopI++, TopJ++) {
+		for (; TopI < N && TopJ < N; TopI++, TopJ++) {
 			Button_cell cell = BTXO[TopI][TopJ];
 			if (cell.cell.getValue().equals(PlayerCR.getValue())) {
 				count++;
 				if (count == 3) {
+					int x = TopI, y = TopJ;
+					for (; x > TopI - 3 && TopJ - 3 < y; x--, y--) {
+						if (PlayerCR.getValue().equals("X"))
+							BTXO[x][y].setIcon(new ImageIcon("image/xwin_150x150.jpg"));
+						if (PlayerCR.getValue().equals("O"))
+							BTXO[x][y].setIcon(new ImageIcon("image/owin_150x150.jpg"));
+					}
 					choose();
 				}
 			} else {
@@ -414,17 +430,24 @@ public class PlayView3 extends JFrame {
 		TopJ = j + min;
 		count = 0;
 
-			if (TopJ >= M) {
-				int du = TopJ - (M - 1);
+			if (TopJ >= N) {
+				int du = TopJ - (N - 1);
 				TopI = TopI + du;
-				TopJ = M - 1;
+				TopJ = N - 1;
 			}
 
-		for (; TopI < M && TopJ >= 0; TopI++, TopJ--) {
+		for (; TopI < N && TopJ >= 0; TopI++, TopJ--) {
 			Button_cell cell = BTXO[TopI][TopJ];
 			if (cell.cell.getValue().equals(PlayerCR.getValue())) {
 				count++;
 				if (count == 3) {
+					int x = TopI, y = TopJ;
+					for (; x > TopI - 3 && TopJ + 3 > y; x--, y++) {
+						if (PlayerCR.getValue().equals("X"))
+							BTXO[x][y].setIcon(new ImageIcon("image/xwin_150x150.jpg"));
+						if (PlayerCR.getValue().equals("O"))
+							BTXO[x][y].setIcon(new ImageIcon("image/owin_150x150.jpg"));
+					}
 					choose();
 				}
 			} else {
@@ -442,9 +465,9 @@ public class PlayView3 extends JFrame {
 		timer.cancel();
 		sec = 0;
 		timer = new Timer();
-		ST = false;
-		for (int i = 0; i < M; i++)
-			for (int j = 0; j < M; j++) {
+		ST = 0;
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++) {
 				BTXO[i][j].setIcon(null);
 				BTXO[i][j].cell.setValue("no");
 				BTXO[i][j].cell.setVisited(false);

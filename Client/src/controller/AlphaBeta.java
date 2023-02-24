@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class AlphaBeta {
 	private static final int winScore=100000000;
-	private static final int N=20;
+	private static final int N=16;
 	private static final int K=5;
 	
 	//Mảng arr[][] lưu các giá trị 0,1,-1 trong đó: 0 là ô trống; 1 là ô Máy đã đánh; -1 là ô Người chơi đã đánh

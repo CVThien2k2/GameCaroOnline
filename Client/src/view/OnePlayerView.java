@@ -33,15 +33,16 @@ import java.awt.Image;
 public class OnePlayerView extends JFrame {
 
 	private JPanel contentPane;
-	private static final int N = 20;
+	private static final int N = 16;
 	private Button_cell[][] buttonCellModel = new Button_cell[N][N];
 	private int[][] markPlayer = new int[N][N];
 	
-	private Image imgX, imgO, img_IconsXO, img_Rotate, imgVs, img_Start, img_Stop, img_Continue, img_Reset, img_Exit, img_Home;
+	private Image imgX, imgO;
 
     private Timer timer = new Timer();
-    private boolean ST = false;
+    private int ST = 0;
     private int sec = 0;
+    private int countBack = 0;
     
     AlphaBeta alphaBeta = new AlphaBeta();
     public static final int winScore = 100000000;
@@ -61,15 +62,6 @@ public class OnePlayerView extends JFrame {
 		try{
             imgO = ImageIO.read(getClass().getResource("o1.png"));
             imgX = ImageIO.read(getClass().getResource("x1.png"));
-            img_IconsXO = ImageIO.read(getClass().getResource("IconsXO_100x100.png"));
-            img_Rotate = ImageIO.read(getClass().getResource("rotate_28x28.png"));
-            imgVs = ImageIO.read(getClass().getResource("vs_85x85.png"));
-            img_Start = ImageIO.read(getClass().getResource("buttonBatdau_114x38.png"));
-            img_Stop = ImageIO.read(getClass().getResource("buttonTamdung_114x38.png"));
-            img_Continue = ImageIO.read(getClass().getResource("buttonTieptuc_114x38.png"));
-            img_Reset = ImageIO.read(getClass().getResource("reset_50x50.png"));
-            img_Exit = ImageIO.read(getClass().getResource("exit_50x50.png"));
-            img_Home = ImageIO.read(getClass().getResource("home_50x50.png"));
     	}catch (Exception e){
             e.printStackTrace();
     	}
@@ -91,7 +83,7 @@ public class OnePlayerView extends JFrame {
 		tictactoe.setBackground(new Color(83, 168, 168));
 
 		tictactoe.setLayout(new GridLayout(N, N));
-		tictactoe.setBounds(237, 22, 675, 616);
+		tictactoe.setBounds(248, 15, 675, 616);
 		contentPane.add(tictactoe);
 		
 		JLabel lblgameCaro = new JLabel("Game Caro");
@@ -102,24 +94,23 @@ public class OnePlayerView extends JFrame {
 		
 		JLabel lblIconsXO = new JLabel("");
 		lblIconsXO.setBounds(0, 11, 85, 82);
-		Image imgIconsXO = img_IconsXO;
-		lblIconsXO.setIcon(new ImageIcon(imgIconsXO));
+		lblIconsXO.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/IconsXO_100x100.png")));
 		contentPane.add(lblIconsXO);
 		
 		JLabel lblChoivsMay = new JLabel("Chơi với máy");
 		lblChoivsMay.setForeground(new Color(255, 255, 255));
-		lblChoivsMay.setFont(new Font("Space Mono", Font.BOLD, 16));
-		lblChoivsMay.setBounds(96, 96, 131, 28);
+		lblChoivsMay.setFont(new Font("Courier New", Font.BOLD, 19));
+		lblChoivsMay.setBounds(92, 96, 137, 28);
 		contentPane.add(lblChoivsMay);
 		
 		JLabel lblOffline = new JLabel("Offline");
 		lblOffline.setForeground(Color.WHITE);
-		lblOffline.setFont(new Font("Space Mono", Font.BOLD, 16));
+		lblOffline.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 18));
 		lblOffline.setBounds(124, 69, 76, 28);
 		contentPane.add(lblOffline);
 		
 		JLabel lblThongtinTrandau = new JLabel("Thông tin trận đấu");
-		lblThongtinTrandau.setForeground(new Color(255, 255, 255));
+		lblThongtinTrandau.setForeground(new Color(255, 255, 181));
 		lblThongtinTrandau.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblThongtinTrandau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblThongtinTrandau.setBounds(12, 170, 219, 43);
@@ -136,7 +127,7 @@ public class OnePlayerView extends JFrame {
 			JLabel lblNewLabel_7 = new JLabel("Mức độ: Dễ");
 			lblNewLabel_7.setForeground(new Color(255, 255, 255));
 			lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblNewLabel_7.setFont(new Font("Courier New", Font.BOLD, 16));
 			lblNewLabel_7.setBounds(40, 207, 155, 37);
 			contentPane.add(lblNewLabel_7);
 
@@ -144,23 +135,23 @@ public class OnePlayerView extends JFrame {
 			JLabel lblNewLabel_7 = new JLabel("Mức độ: Trung bình");
 			lblNewLabel_7.setForeground(new Color(255, 255, 255));
 			lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblNewLabel_7.setBounds(48, 207, 155, 37);
+			lblNewLabel_7.setFont(new Font("Courier New", Font.BOLD, 16));
+			lblNewLabel_7.setBounds(30, 207, 185, 37);
 			contentPane.add(lblNewLabel_7);
 		} else {
 			JLabel lblNewLabel_7 = new JLabel("Mức độ: Khó");
 			lblNewLabel_7.setForeground(new Color(255, 255, 255));
 			lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblNewLabel_7.setFont(new Font("Courier New", Font.BOLD, 16));
 			lblNewLabel_7.setBounds(42, 207, 155, 37);
 			contentPane.add(lblNewLabel_7);
 		}
 
 		JLabel lblSoluotdadanh = new JLabel("Số lượt bạn đã đánh: ");
 		lblSoluotdadanh.setForeground(new Color(255, 255, 255));
-		lblSoluotdadanh.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblSoluotdadanh.setFont(new Font("Courier New", Font.BOLD, 16));
 		lblSoluotdadanh.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSoluotdadanh.setBounds(13, 267, 149, 22);
+		lblSoluotdadanh.setBounds(9, 265, 200, 22);
 		contentPane.add(lblSoluotdadanh);
 		
 		
@@ -168,7 +159,7 @@ public class OnePlayerView extends JFrame {
 		lblClick.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClick.setForeground(Color.WHITE);
 		lblClick.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblClick.setBounds(149, 267, 51, 22);
+		lblClick.setBounds(205, 265, 43, 22);
 		contentPane.add(lblClick);
 				
 		for (int i = 0; i < N; i++)
@@ -176,31 +167,33 @@ public class OnePlayerView extends JFrame {
 				int x = i; int y = j;
 				Button_cell btCell = new Button_cell();
 				buttonCellModel[i][j] = btCell;
+				buttonCellModel[x][y].setIcon(new ImageIcon("image/border.jpg"));
 				tictactoe.add(buttonCellModel[i][j]);
 				buttonCellModel[x][y].addMouseListener(new MouseAdapter() {
 
 					@Override
 					public void mouseExited(MouseEvent e) {
-						buttonCellModel[x][y].setBackground(Color.white);
+						if (markPlayer[x][y]==0&&ST==0) buttonCellModel[x][y].setIcon(new ImageIcon("image/border.jpg"));
+						if (markPlayer[x][y]==0&&ST==1) buttonCellModel[x][y].setIcon(new ImageIcon("image/border.jpg"));
 					}
 
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						buttonCellModel[x][y].setBackground(null);
+						if (markPlayer[x][y]==0&&ST==0) buttonCellModel[x][y].setIcon(new ImageIcon("image/border2.jpg"));
+						if (markPlayer[x][y]==0&&ST==1) buttonCellModel[x][y].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/x2_pre.jpg")));
 					}
 
 					@Override
 					public void mousePressed(MouseEvent e) {
-						if (markPlayer[x][y]==0&&ST==true) {
+						if (markPlayer[x][y]==0&&ST==1) {
 							
 							//Hàm đánh cờ 
 							changePos("X", buttonCellModel[x][y],x,y);	
 							
-							if(checkWin(markPlayer,count)!=ST_NORMAL) { //Hàm kiểm kết thúc trận. nếu dúng thì kết thúc luôn
-								choose(checkWin(markPlayer,count), depth);
+							if(checkWin(x,y,count,-1)== Player_WIN) { //Hàm kiểm kết thúc trận. nếu dúng thì kết thúc luôn
+								choose(Player_WIN, depth);
 								return;	
 							}
-							
 							
 							//CalculateNextMove: Hàm tìm nước đánh tốt nhất cho Máy 
 							int[] nextMove = AlphaBeta.calculateNextMove(markPlayer, depth);
@@ -208,8 +201,8 @@ public class OnePlayerView extends JFrame {
 							if(nextMove[0]!=-1 && nextMove[1]!=-1) {
 								changePos("O", buttonCellModel[nextMove[0]][nextMove[1]],nextMove[0],nextMove[1]);
 							} 
-							if(checkWin(markPlayer,count)!=ST_NORMAL) { //Hàm kiểm kết thúc trận. nếu dúng thì kết thúc luôn
-								choose(checkWin(markPlayer,count), depth);
+							if(checkWin(nextMove[0],nextMove[1],count,1)== Machine_WIN) { //Hàm kiểm kết thúc trận. nếu dúng thì kết thúc luôn
+								choose(Machine_WIN, depth);
 								return;	
 							}	
 							
@@ -224,16 +217,26 @@ public class OnePlayerView extends JFrame {
 		bntQuaylai.setBackground(new Color(125, 191, 191));
 		bntQuaylai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deletePos();
-				deletePos();
-				if(clicked>0) {
-					clicked--;
-					lblClick.setText(clicked + "");}
+				if(!stk.empty()) {
+					if(countBack<3) {
+						deletePos();
+						deletePos();
+						if(clicked>0) {
+							clicked--;
+							lblClick.setText(clicked + "");}
+						countBack++;
+						if(countBack==3) JOptionPane.showMessageDialog(null, "Bạn vừa quay lại nước đi: Bạn còn không còn lượt quay lại nào nữa", "Thông báo quay lại nước đi", JOptionPane.INFORMATION_MESSAGE);
+						else JOptionPane.showMessageDialog(null, "Bạn vừa quay lại nước đi: Bạn còn "+(3-countBack) +" lượt quay lại", "Thông báo quay lại nước đi", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else JOptionPane.showMessageDialog(null, "Bạn đã hết lượt quay lại", "Thông báo quay lại nước đi", JOptionPane.INFORMATION_MESSAGE);
+
+				}
+				else JOptionPane.showMessageDialog(null, "Bạn chưa đánh nước đi nào", "Thông báo quay lại nước đi", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		bntQuaylai.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		bntQuaylai.setBounds(31, 349, 188, 34);
-		Image imgRotate = img_Rotate;
+		bntQuaylai.setFont(new Font("Courier New", Font.BOLD, 15));
+		bntQuaylai.setBounds(17, 365, 215, 34);
+		bntQuaylai.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/rotate_28x28.png")));
 		contentPane.add(bntQuaylai);
 		
 		JLabel lblTrandaugiua = new JLabel("Trận đấu giữa:");
@@ -246,8 +249,7 @@ public class OnePlayerView extends JFrame {
 		JLabel lblIconsVs = new JLabel("");
 		lblIconsVs.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIconsVs.setBounds(95, 442, 67, 54);
-		Image img3 = imgVs;
-		lblIconsVs.setIcon(new ImageIcon(img3));
+		lblIconsVs.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/vs_85x85.png")));
 		contentPane.add(lblIconsVs);
 		
 		JLabel lblMay = new JLabel("Máy");
@@ -260,15 +262,15 @@ public class OnePlayerView extends JFrame {
 		JLabel lblTgThidau = new JLabel("Thời gian thi đấu: ");
 		lblTgThidau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTgThidau.setForeground(Color.WHITE);
-		lblTgThidau.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTgThidau.setBounds(10, 303, 131, 22);
+		lblTgThidau.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblTgThidau.setBounds(18, 298, 208, 22);
 		contentPane.add(lblTgThidau);
 		
 		JLabel lblTime = new JLabel("00:00");
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTime.setForeground(Color.WHITE);
-		lblTime.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTime.setBounds(139, 303, 61, 22);
+		lblTime.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblTime.setBounds(86, 327, 61, 22);
 		contentPane.add(lblTime);
 		
 		
@@ -277,15 +279,14 @@ public class OnePlayerView extends JFrame {
 		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 5));
 		btnStart.setBackground(new Color(83, 168, 168));
 		btnStart.setBounds(62, 500, 126, 40);
-		Image imgStart = img_Start;
-		btnStart.setIcon(new ImageIcon(imgStart));
+		btnStart.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/buttonBatdau_114x38.png")));
 		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cl = e.getActionCommand();
 
 				if (cl.equals("0")) {
-					ST = true;
+					ST = 1;
 					timer.scheduleAtFixedRate(new TimerTask() {
 						@Override
 						public void run() {
@@ -293,16 +294,14 @@ public class OnePlayerView extends JFrame {
 							lblTime.setText(((sec / 60) / 10) + "" + (sec / 60) % 10 + ":" + ((sec % 60) / 10) + (sec % 60 % 10));
 						}
 					}, 1000, 1000); // trễ ban đầu 1000ms ,vòng lặp lại sau 1000ms
-					Image imgStop = img_Stop;
-					btnStart.setIcon(new ImageIcon(imgStop));
+					btnStart.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/buttonTamdung_114x38.png")));
 					btnStart.setText("1");
 
 				} else if (cl.equals("2")) {
-					ST = true;
+					ST = 1;
 					timer.cancel();
 					timer = new Timer();
-					Image imgStop = img_Stop;
-					btnStart.setIcon(new ImageIcon(imgStop));
+					btnStart.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/buttonTamdung_114x38.png")));
 					timer.scheduleAtFixedRate(new TimerTask() {
 						@Override
 						public void run() {
@@ -311,13 +310,26 @@ public class OnePlayerView extends JFrame {
 						}
 					}, 1000, 1000);
 					btnStart.setText("1");
+					
+					for (int i = 0; i < N; i++) {
+						for (int j = 0; j < N; j++) {
+							if (markPlayer[i][j]==0) buttonCellModel[i][j].setIcon(new ImageIcon("image/border.jpg"));
+							if (markPlayer[i][j]==1) buttonCellModel[i][j].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/o2.jpg")));
+							if (markPlayer[i][j]==-1) buttonCellModel[i][j].setIcon(new ImageIcon(GameRoom.class.getResource("/icon/x2.jpg")));
+						}
+					}
+					
 				} else if (cl.equals("1")) {
-					ST = false;
+					ST = 2;
 					timer.cancel();
-					Image imgContinue = img_Continue;
-					btnStart.setIcon(new ImageIcon(imgContinue));
+					btnStart.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/buttonTieptuc_114x38.png")));
 					btnStart.setText("2");
-
+					
+					for (int i = 0; i < N; i++) {
+						for (int j = 0; j < N; j++) {
+							buttonCellModel[i][j].setIcon(new ImageIcon("image/border2.jpg"));
+						}
+					}
 				}
 
 			}
@@ -329,8 +341,7 @@ public class OnePlayerView extends JFrame {
 		btnExit.setFont(new Font("Space Mono", Font.BOLD, 18));
 		btnExit.setBackground(new Color(83, 168, 168));
 		btnExit.setBounds(10, 562, 54, 54);
-		Image imgExit = img_Exit;
-		btnExit.setIcon(new ImageIcon(imgExit));
+		btnExit.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/exit_50x50.png")));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -342,8 +353,7 @@ public class OnePlayerView extends JFrame {
 		btnHome.setFont(new Font("Space Mono", Font.BOLD, 18));
 		btnHome.setBackground(new Color(83, 168, 168));
 		btnHome.setBounds(93, 562, 54, 54);
-		Image imgHome = img_Home;
-		btnHome.setIcon(new ImageIcon(imgHome));
+		btnHome.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/home_50x50.png")));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -356,8 +366,7 @@ public class OnePlayerView extends JFrame {
 		btnReset.setFont(new Font("Space Mono", Font.BOLD, 18));
 		btnReset.setBackground(new Color(83, 168, 168));
 		btnReset.setBounds(175, 562, 54, 54);
-		Image imgReset = img_Reset;
-		btnReset.setIcon(new ImageIcon(imgReset));
+		btnReset.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/reset_50x50.png")));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -385,14 +394,12 @@ public class OnePlayerView extends JFrame {
 	public void changePos(String turn, Button_cell bt,int x, int y) {
 		int k=x*10000+y;
 		if(turn=="O") {
-			Image img = imgO;
-			bt.setIcon(new ImageIcon(img));
+			bt.setIcon(new ImageIcon(GameRoom.class.getResource("/icon/o2.jpg")));
 			markPlayer[x][y] = 1;
 			count++;
 			stk.push(k);
 		}else if(turn=="X") {
-			Image img = imgX;
-			bt.setIcon(new ImageIcon(img));
+			bt.setIcon(new ImageIcon(GameRoom.class.getResource("/icon/x2.jpg")));
 			markPlayer[x][y] = -1;
 			count++;
 			clicked++;
@@ -406,24 +413,116 @@ public class OnePlayerView extends JFrame {
 		if(!stk.empty()) {
 			int k=stk.peek(); stk.pop();
 			int yk=k%10000; int xk=(k-yk)/10000;			
-			buttonCellModel[xk][yk].setIcon(null);
+			buttonCellModel[xk][yk].setIcon(new ImageIcon("image/border.jpg"));
 			markPlayer[xk][yk] = 0;
 			count--;
+			
 		}
-	}
-		 
-		//Hàm kiểm tra xem hết trận đấu chưa, cụ thể là đã thắng hòa hay thua chưa. (True là đã hết || False là chưa hết)
-		public int checkWin(int[][] arr, int count) {	
-			
-			if(Heuristic.getScore(arr,1,-1) >= winScore) return Machine_WIN;	
-
-			else if (Heuristic.getScore(arr,-1,1) >= winScore) return Player_WIN;
-			
-			else if (count==N*N) return ST_DRAW;
-			
-			return ST_NORMAL;	
-		}
+	}	 
+//		//Hàm kiểm tra xem hết trận đấu chưa, cụ thể là đã thắng hòa hay thua chưa. (True là đã hết || False là chưa hết)
+//		public int checkWin(int[][] arr, int count) {	
+//			
+//			if(Heuristic.getScore(arr,1,-1) >= winScore) return Machine_WIN;	
+//
+//			else if (Heuristic.getScore(arr,-1,1) >= winScore) return Player_WIN;
+//			
+//			else if (count==N*N) return ST_DRAW;
+//			
+//			return ST_NORMAL;	
+//		}
 	
+
+		public int checkWin(int i, int j, int countXo, int xo) {
+			// Hang ngang
+			int count = 0;
+			for (int col = 0; col < N; col++) {
+				if (markPlayer[i][col]==xo) {
+					count++;
+					if (count == 5) {
+						for (int k = col; k > col - 5; k--) {
+							if (xo==1) buttonCellModel[i][k].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/owin.jpg")));
+							if (xo==-1)buttonCellModel[i][k].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/xwin.jpg")));
+						}
+						if(xo==1) return Machine_WIN;
+						if(xo==-1)	return Player_WIN;
+					}
+				} else {
+					count = 0;
+				}
+			}
+
+			// Chiều dọc
+			count = 0;
+			for (int row = 0; row < N; row++) {
+				if (markPlayer[row][j]==xo) {
+					count++;
+					if (count == 5) {
+						for (int k = row; k > row - 5; k--) {
+							if (xo==1) buttonCellModel[k][j].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/owin.jpg")));
+							if (xo==-1)buttonCellModel[k][j].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/xwin.jpg")));
+						}
+						if(xo==1) return Machine_WIN;
+						if(xo==-1)	return Player_WIN;
+					}
+				} else {
+					count = 0;
+				}
+			}
+
+			// Chéo trái
+			int min = Math.min(i, j);
+			int TopI = i - min;
+			int TopJ = j - min;
+			count = 0;
+
+			for (; TopI < N && TopJ < N; TopI++, TopJ++) {
+				if (markPlayer[TopI][TopJ]==xo) {
+					count++;
+					if (count == 5) {
+						int x = TopI, y = TopJ;
+						for (; x > TopI - 5 && TopJ - 5 < y; x--, y--) {
+							if (xo==1) buttonCellModel[x][y].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/owin.jpg")));
+							if (xo==-1)buttonCellModel[x][y].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/xwin.jpg")));
+						}
+						if(xo==1) return Machine_WIN;
+						if(xo==-1)	return Player_WIN;
+					}
+				} else {
+					count = 0;
+				}
+			}
+			// cheophai
+			min = i;
+			TopI = i - min;
+			TopJ = j + min;
+			count = 0;
+
+			if (TopJ >= N) {
+				int du = TopJ - (N - 1);
+				TopI = TopI + du;
+				TopJ = N - 1;
+			}
+
+			for (; TopI < N && TopJ >= 0; TopI++, TopJ--) {
+				if (markPlayer[TopI][TopJ]==xo) {
+					count++;
+					if (count == 5) {
+						int x = TopI, y = TopJ;
+						for (; x > TopI - 5 && TopJ + 5 > y; x--, y++) {
+							if (xo==1) buttonCellModel[x][y].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/owin.jpg")));
+							if (xo==-1)buttonCellModel[x][y].setIcon(new ImageIcon(OnePlayerView.class.getResource("/icon/xwin.jpg")));
+						}
+						if(xo==1) return Machine_WIN;
+						if(xo==-1)	return Player_WIN;
+					}
+				} else {
+					count = 0;
+				}
+			}
+			if (countXo==N*N) return ST_DRAW;
+			return ST_NORMAL;
+		}
+		
 	
 	//Hàm lựa chọn sau khi kết thúc trò chơi
 	public void choose(int winner, int depth) {

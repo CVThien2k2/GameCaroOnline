@@ -1,7 +1,7 @@
 package controller;
 
 public class Heuristic {
-	private static int N=20;
+	private static int N=16;
 
 	//Hàm tính tỉ số điểm giữa Máy trên Người chơi
 	//nextPlayer: lượt đánh tiếp theo là ai?	   1: lượt tiếp theo là Máy     -1: lượt tiếp theo Người chơi
