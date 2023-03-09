@@ -12,9 +12,13 @@ import javax.swing.UIManager;
 import java.awt.Font;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -68,6 +72,7 @@ public class HainguoichoiView extends JFrame {
 		btnQuaylai.setHorizontalAlignment(SwingConstants.LEFT);
 		btnQuaylai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new Offline();
 			}
@@ -87,6 +92,7 @@ public class HainguoichoiView extends JFrame {
 		btnExit.setIcon(new ImageIcon(imgExit));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				System.exit(0);
 			}
 		});
@@ -100,6 +106,7 @@ public class HainguoichoiView extends JFrame {
 		btnHome.setIcon(new ImageIcon(imgHome));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new MenuView();
 			}
@@ -114,6 +121,7 @@ public class HainguoichoiView extends JFrame {
 		btnReset.setIcon(new ImageIcon(imgReset));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new HainguoichoiView();
 			}
@@ -165,6 +173,7 @@ public class HainguoichoiView extends JFrame {
 		co3Button.setBounds(366, 312, 214, 39);
 		co3Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new PlayView3();
 			}
@@ -178,6 +187,7 @@ public class HainguoichoiView extends JFrame {
 		co6Button.setBounds(624, 312, 214, 39);
 		co6Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new PlayView6and3();
 			}
@@ -192,6 +202,7 @@ public class HainguoichoiView extends JFrame {
 		co9Button.setBounds(366, 394, 214, 39);
 		co9Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new PlayView4();
 			}
@@ -206,11 +217,23 @@ public class HainguoichoiView extends JFrame {
 		co12Button.setBounds(624, 394, 214, 39);
 		co12Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new PlayView5();
 			}
 		});
 		contentPane.add(co12Button);
-
 	}
+	
+	public void playSoundButton() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
 }

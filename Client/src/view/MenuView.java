@@ -11,6 +11,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -28,6 +31,7 @@ import javax.swing.SpringLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
@@ -91,6 +95,7 @@ public class MenuView extends JFrame {
 		btnReset.setIcon(new ImageIcon(imgReset));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new MenuView();
 			}
@@ -121,6 +126,7 @@ public class MenuView extends JFrame {
 		btnExit.setIcon(new ImageIcon(imgExit));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				System.exit(0);
 			}
 		});
@@ -150,6 +156,7 @@ public class MenuView extends JFrame {
 		btnOnline.setIcon(new ImageIcon(imgOnline));
 		btnOnline.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new Client();
 			}
@@ -165,6 +172,7 @@ public class MenuView extends JFrame {
 		btnChoiNgay.setIcon(new ImageIcon(imgChoiNgay));
 		btnChoiNgay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new Offline();
 			}
@@ -178,6 +186,18 @@ public class MenuView extends JFrame {
 		Image img3 = img_3;
 		lblIconsXO_2.setIcon(new ImageIcon(img3));
 		contentPane.add(lblIconsXO_2);
-
 	}
+	
+	public void playSoundButton() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+	
 }

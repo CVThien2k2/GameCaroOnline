@@ -16,11 +16,15 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,8 +40,6 @@ public class OnePlayerView extends JFrame {
 	private static final int N = 16;
 	private Button_cell[][] buttonCellModel = new Button_cell[N][N];
 	private int[][] markPlayer = new int[N][N];
-	
-	private Image imgX, imgO;
 
     private Timer timer = new Timer();
     private int ST = 0;
@@ -58,13 +60,6 @@ public class OnePlayerView extends JFrame {
 	Stack<Integer> stk = new Stack<>();
 	
 	public OnePlayerView(int depth) {
-		
-		try{
-            imgO = ImageIO.read(getClass().getResource("o1.png"));
-            imgX = ImageIO.read(getClass().getResource("x1.png"));
-    	}catch (Exception e){
-            e.printStackTrace();
-    	}
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -217,6 +212,7 @@ public class OnePlayerView extends JFrame {
 		bntQuaylai.setBackground(new Color(125, 191, 191));
 		bntQuaylai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				if(!stk.empty()) {
 					if(countBack<3) {
 						deletePos();
@@ -283,6 +279,7 @@ public class OnePlayerView extends JFrame {
 		
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				String cl = e.getActionCommand();
 
 				if (cl.equals("0")) {
@@ -344,6 +341,7 @@ public class OnePlayerView extends JFrame {
 		btnExit.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/exit_50x50.png")));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				System.exit(0);
 			}
 		});
@@ -356,6 +354,7 @@ public class OnePlayerView extends JFrame {
 		btnHome.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/home_50x50.png")));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new MenuView();
 			}
@@ -369,25 +368,35 @@ public class OnePlayerView extends JFrame {
 		btnReset.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/reset_50x50.png")));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				if(depth==1) new OnePlayerView(1);
-				else if(depth==2) new OnePlayerView(2);
-				else new OnePlayerView(3);
+				playSoundButton();
+				Reset(depth);
+//				dispose();
+//				if(depth==1) new OnePlayerView(1);
+//				else if(depth==2) new OnePlayerView(2);
+//				else new OnePlayerView(3);
 			}
 		});
 		contentPane.add(btnReset);
 
 	}
 
-	public void Reset() {
+	public void Reset(int depth) {
+		int res = JOptionPane.showConfirmDialog(this, "Bạn có muốn chơi lại không?", "Thông báo",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (res == JOptionPane.YES_OPTION) {
+			dispose();
+			if(depth==1) new OnePlayerView(1);
+			else if(depth==2) new OnePlayerView(2);
+			else new OnePlayerView(3);
+		}
 		 
-		for (int i = 0; i < N; i++)
-			for (int j = 0; j < N; j++) {
-				buttonCellModel[i][j].setIcon(null);
-				buttonCellModel[i][j].cell.setValue("no");
-				buttonCellModel[i][j].cell.setVisited(false);
-				clicked = 0;
-			}
+//		for (int i = 0; i < N; i++)
+//			for (int j = 0; j < N; j++) {
+//				buttonCellModel[i][j].setIcon(null);
+//				buttonCellModel[i][j].cell.setValue("no");
+//				buttonCellModel[i][j].cell.setVisited(false);
+//				clicked = 0;
+//			}
 	}
 
 	//Hàm đánh cờ (vẽ O hoặc X) vào ô cờ, rồi đánh dấu xem đã được thăm chưa
@@ -398,6 +407,7 @@ public class OnePlayerView extends JFrame {
 			markPlayer[x][y] = 1;
 			count++;
 			stk.push(k);
+			playSound();
 		}else if(turn=="X") {
 			bt.setIcon(new ImageIcon(GameRoom.class.getResource("/icon/x2.jpg")));
 			markPlayer[x][y] = -1;
@@ -405,6 +415,7 @@ public class OnePlayerView extends JFrame {
 			clicked++;
 			lblClick.setText(clicked + "");
 			stk.push(k);
+			playSound();
 		}
 	}
 	
@@ -419,6 +430,45 @@ public class OnePlayerView extends JFrame {
 			
 		}
 	}	 
+	
+	public void playSoundButton() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+	
+	public void playSound() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/click.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+	
+	public void playSoundwin() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/win.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+	
 //		//Hàm kiểm tra xem hết trận đấu chưa, cụ thể là đã thắng hòa hay thua chưa. (True là đã hết || False là chưa hết)
 //		public int checkWin(int[][] arr, int count) {	
 //			
@@ -431,7 +481,6 @@ public class OnePlayerView extends JFrame {
 //			return ST_NORMAL;	
 //		}
 	
-
 		public int checkWin(int i, int j, int countXo, int xo) {
 			// Hang ngang
 			int count = 0;
@@ -526,6 +575,7 @@ public class OnePlayerView extends JFrame {
 	
 	//Hàm lựa chọn sau khi kết thúc trò chơi
 	public void choose(int winner, int depth) {
+		playSoundwin();
 		if(winner== ST_DRAW) JOptionPane.showMessageDialog(null, "Draw!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		
 		if(winner== Machine_WIN) JOptionPane.showMessageDialog(null, "You lose!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);

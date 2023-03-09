@@ -12,12 +12,16 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -73,6 +77,7 @@ public class Offline extends JFrame {
 		btnQuaylai.setHorizontalAlignment(SwingConstants.LEFT);
 		btnQuaylai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new MenuView();
 			}
@@ -107,6 +112,7 @@ public class Offline extends JFrame {
 		btnReset.setIcon(new ImageIcon(imgReset));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new Offline();
 			}
@@ -121,6 +127,7 @@ public class Offline extends JFrame {
 		btnExit.setIcon(new ImageIcon(imgExit));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				System.exit(0);
 			}
 		});
@@ -134,6 +141,7 @@ public class Offline extends JFrame {
 		btnHome.setIcon(new ImageIcon(imgHome));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new MenuView();
 			}
@@ -164,6 +172,7 @@ public class Offline extends JFrame {
 		btnMotNguoiChoi.setIcon(new ImageIcon(imgMotNguoiChoi));
 		btnMotNguoiChoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new OfflineOnePlayerView();
 			}
@@ -179,11 +188,23 @@ public class Offline extends JFrame {
 		btnHaiNguoiChoi.setIcon(new ImageIcon(imgHaiNguoiChoi));
 		btnHaiNguoiChoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new HainguoichoiView();
 			}
 		});
 		contentPane.add(btnHaiNguoiChoi);
-
 	}
+	
+	public void playSoundButton() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
 }

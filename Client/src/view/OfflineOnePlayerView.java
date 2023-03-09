@@ -12,8 +12,12 @@ import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.border.SoftBevelBorder;
@@ -83,6 +87,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnQuaylai.setIcon(new ImageIcon(imgQuaylai));
 		btnQuaylai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new Offline();
 			}
@@ -97,6 +102,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnReset.setIcon(new ImageIcon(imgReset));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new OfflineOnePlayerView();
 			}
@@ -111,6 +117,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnExit.setIcon(new ImageIcon(imgExit));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				System.exit(0);
 			}
 		});
@@ -124,6 +131,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnHome.setIcon(new ImageIcon(imgHome));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new MenuView();
 			}
@@ -176,6 +184,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnDe.setBounds(520, 295, 214, 39);
 		btnDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new OnePlayerView(1);
 			}
@@ -189,6 +198,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnTrungBinh.setBounds(520, 366, 214, 39);
 		btnTrungBinh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new OnePlayerView(2);
 			}
@@ -202,11 +212,23 @@ public class OfflineOnePlayerView extends JFrame {
 		btnKho.setBounds(520, 439, 214, 39);
 		btnKho.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new OnePlayerView(3);
 			}
 		});
 		contentPane.add(btnKho);
-
 	}
+	
+	public void playSoundButton() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
 }

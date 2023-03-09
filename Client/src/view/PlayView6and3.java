@@ -21,11 +21,15 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -126,6 +130,7 @@ public class PlayView6and3 extends JFrame {
 
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				String cl = e.getActionCommand();
 
 				if (cl.equals("0")) {
@@ -242,6 +247,7 @@ public class PlayView6and3 extends JFrame {
 		btnExit.setIcon(new ImageIcon(PlayView3.class.getResource("/view/exit_50x50.png")));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				System.exit(0);
 			}
 		});
@@ -254,6 +260,7 @@ public class PlayView6and3 extends JFrame {
 		btnHome.setIcon(new ImageIcon(PlayView3.class.getResource("/view/home_50x50.png")));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSoundButton();
 				dispose();
 				new MenuView();
 			}
@@ -267,8 +274,8 @@ public class PlayView6and3 extends JFrame {
 		btnReset.setIcon(new ImageIcon(PlayView3.class.getResource("/view/reset_50x50.png")));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new PlayView6and3();
+				playSoundButton();
+				Reset();
 			}
 		});
 		contentPane.add(btnReset);
@@ -314,6 +321,7 @@ public class PlayView6and3 extends JFrame {
 							// TODO Auto-generated method stub
 							if (bt.cell.isVisited() == false) {
 								if (PlayerCR == player1) {
+									playSound();
 									clicked++;
 									bt.setIcon(new ImageIcon("image/o2_90x90.jpg"));
 									bt.cell.setValue("O");
@@ -327,6 +335,7 @@ public class PlayView6and3 extends JFrame {
 									setCurrentPlay(PlayerCR.getName());
 
 								} else if (PlayerCR == player2) {
+									playSound();
 									clicked++;
 									bt.setIcon(new ImageIcon("image/x2_90x90.jpg"));
 									bt.cell.setValue("X");
@@ -456,10 +465,48 @@ public class PlayView6and3 extends JFrame {
 		}
 
 	}
-
+	
+	public void playSoundButton() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+	
+	public void playSound() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/click.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+	
+	public void playSoundwin() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/win.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+	
 	public void Reset() {
-		btnStart.setText("Start");
-		btnStart.setBackground(Color.green);
+		btnStart.setText("2");
+		btnStart.setIcon(new ImageIcon(PlayView4.class.getResource("/view/buttonBatdau_114x38.png")));
 		lblNewLabel_4.setText(0 + "");
 		lblNewLabel_8.setText("00:00");
 		timer.cancel();
@@ -468,7 +515,7 @@ public class PlayView6and3 extends JFrame {
 		ST = 0;
 		for (int i = 0; i < N; i++)
 			for (int j = 0; j < N; j++) {
-				BTXO[i][j].setIcon(null);
+				BTXO[i][j].setIcon(new ImageIcon("image/border_90x90.jpg"));
 				BTXO[i][j].cell.setValue("no");
 				BTXO[i][j].cell.setVisited(false);
 				clicked = 0;
@@ -495,8 +542,7 @@ public class PlayView6and3 extends JFrame {
 		int res = JOptionPane.showConfirmDialog(this, "Bạn muốn chơi lại không?", "Ván này hòa ",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (res == JOptionPane.YES_OPTION) {
-			btnStart.setText("Start");
-			btnStart.setBackground(Color.GREEN);
+			btnStart.setText("2");
 			Reset();
 		} else if (res == JOptionPane.NO_OPTION) {
 			String[] option = { "Trở về Menu chính", "Thoát game" };
@@ -513,6 +559,7 @@ public class PlayView6and3 extends JFrame {
 	}
 
 	public void choose() {
+		playSoundwin();
 		timer.cancel();
 
 		sec = 0;
@@ -521,8 +568,7 @@ public class PlayView6and3 extends JFrame {
 		int res = JOptionPane.showConfirmDialog(this, "Bạn muốn chơi lại không?", "Đã hết game ",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (res == JOptionPane.YES_OPTION) {
-			btnStart.setText("Start");
-			btnStart.setBackground(Color.GREEN);
+			btnStart.setText("2");
 			Reset();
 		} else if (res == JOptionPane.NO_OPTION) {
 			String[] option = { "Trở về Menu chính", "Thoát game" };
