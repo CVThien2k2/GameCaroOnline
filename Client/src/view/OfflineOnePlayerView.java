@@ -171,8 +171,8 @@ public class OfflineOnePlayerView extends JFrame {
 		contentPane.add(lblGameCaro_1);
 		
 		JLabel lblChonchedochoi = new JLabel("Chọn chế độ chơi");
-		lblChonchedochoi.setFont(new Font("Space Mono", Font.BOLD, 30));
-		lblChonchedochoi.setForeground(new Color(255, 255, 255));
+		lblChonchedochoi.setFont(new Font("Courier New", Font.BOLD, 30));
+		lblChonchedochoi.setForeground(new Color(255, 255, 181));
 		lblChonchedochoi.setBounds(475, 195, 311, 58);
 		contentPane.add(lblChonchedochoi);
 		
@@ -181,7 +181,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnDe.setFont(new Font("Space Mono", Font.BOLD | Font.ITALIC, 20));
 		btnDe.setBackground(new Color(138, 196, 196));
 		btnDe.setForeground(new Color(255, 255, 255));
-		btnDe.setBounds(520, 295, 214, 39);
+		btnDe.setBounds(513, 295, 214, 39);
 		btnDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playSoundButton();
@@ -195,7 +195,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnTrungBinh.setForeground(Color.WHITE);
 		btnTrungBinh.setFont(new Font("Space Mono", Font.BOLD | Font.ITALIC, 20));
 		btnTrungBinh.setBackground(new Color(138, 196, 196));
-		btnTrungBinh.setBounds(520, 366, 214, 39);
+		btnTrungBinh.setBounds(513, 366, 214, 39);
 		btnTrungBinh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playSoundButton();
@@ -209,7 +209,7 @@ public class OfflineOnePlayerView extends JFrame {
 		btnKho.setForeground(Color.WHITE);
 		btnKho.setFont(new Font("Space Mono", Font.BOLD | Font.ITALIC, 20));
 		btnKho.setBackground(new Color(138, 196, 196));
-		btnKho.setBounds(520, 439, 214, 39);
+		btnKho.setBounds(513, 439, 214, 39);
 		btnKho.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playSoundButton();

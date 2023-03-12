@@ -157,9 +157,10 @@ public class Offline extends JFrame {
 		contentPane.add(lblGameCaro_1);
 		
 		JLabel lblChonCheDoChoi = new JLabel("Chọn chế độ chơi");
-		lblChonCheDoChoi.setFont(new Font("Space Mono", Font.BOLD, 30));
-		lblChonCheDoChoi.setForeground(new Color(255, 255, 255));
-		lblChonCheDoChoi.setBounds(475, 195, 311, 58);
+		lblChonCheDoChoi.setHorizontalAlignment(SwingConstants.CENTER);
+		lblChonCheDoChoi.setFont(new Font("Courier New", Font.BOLD, 30));
+		lblChonCheDoChoi.setForeground(new Color(255, 255, 181));
+		lblChonCheDoChoi.setBounds(468, 195, 311, 58);
 		contentPane.add(lblChonCheDoChoi);
 		
 		JButton btnMotNguoiChoi = new JButton("");

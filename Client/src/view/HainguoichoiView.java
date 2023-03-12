@@ -160,9 +160,9 @@ public class HainguoichoiView extends JFrame {
 		contentPane.add(lblGameCaro_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Chọn chế độ chơi");
-		lblNewLabel_2.setFont(new Font("Space Mono", Font.BOLD, 30));
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setBounds(475, 195, 311, 58);
+		lblNewLabel_2.setFont(new Font("Courier New", Font.BOLD, 30));
+		lblNewLabel_2.setForeground(new Color(255, 255, 181));
+		lblNewLabel_2.setBounds(468, 195, 311, 58);
 		contentPane.add(lblNewLabel_2);
 		
 		JButton co3Button = new JButton("Cờ 3 ô");

@@ -109,9 +109,9 @@ public class PlayView4 extends JFrame {
 
 		JLabel lblNewLabel_5 = new JLabel("Trận đấu giữa: ");
 		lblNewLabel_5.setForeground(new Color(255, 255, 255));
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_5.setFont(new Font("Courier New", Font.BOLD, 20));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(63, 420, 131, 28);
+		lblNewLabel_5.setBounds(37, 420, 199, 28);
 		contentPane.add(lblNewLabel_5);
 
 		lblNewLabel_6 = new JLabel(player1.getName() + " VS " + player2.getName());
@@ -235,9 +235,9 @@ public class PlayView4 extends JFrame {
 		
 		JLabel lblThongtinTrandau = new JLabel("Thông tin trận đấu");
 		lblThongtinTrandau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblThongtinTrandau.setForeground(Color.WHITE);
-		lblThongtinTrandau.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblThongtinTrandau.setBounds(12, 170, 219, 43);
+		lblThongtinTrandau.setForeground(new Color(255, 255, 181));
+		lblThongtinTrandau.setFont(new Font("Courier New", Font.BOLD, 22));
+		lblThongtinTrandau.setBounds(12, 170, 250, 43);
 		contentPane.add(lblThongtinTrandau);
 		
 		JButton btnExit = new JButton("");
@@ -261,8 +261,7 @@ public class PlayView4 extends JFrame {
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playSoundButton();
-				dispose();
-				new MenuView();
+				BackHome();
 			}
 		});
 		contentPane.add(btnHome);
@@ -505,6 +504,13 @@ public class PlayView4 extends JFrame {
 	}
 	
 	public void Reset() {
+		int res = JOptionPane.showConfirmDialog(this, "Bạn có muốn chơi lại không?", "Thông báo",
+			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		
+		if (res == JOptionPane.YES_OPTION) ResetEnd();
+	}
+	
+	public void ResetEnd() {
 		btnStart.setText("2");
 		btnStart.setIcon(new ImageIcon(PlayView4.class.getResource("/view/buttonBatdau_114x38.png")));
 		lblNewLabel_4.setText(0 + "");
@@ -611,6 +617,16 @@ public class PlayView4 extends JFrame {
 		if (choose == 1) {
 			PlayerCR = player2;
 			setCurrentPlay(player2.getName());
+		}
+	}
+	
+	public void BackHome() {
+		int res = JOptionPane.showConfirmDialog(this, "Bạn có muốn quay về trang chủ không?", "Thông báo",
+			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		
+		if (res == JOptionPane.YES_OPTION) {
+			dispose();
+			new MenuView();
 		}
 	}
 }

@@ -55,12 +55,15 @@ public class OnePlayerView extends JFrame {
 	public int count = 0;
 	private int clicked = 0;
 	private JLabel lblClick;
+	private String tenNguoiChoi = "Nguoi choi";
+	private JButton btnStart;
+	private JLabel lblTime;
 	
 	private JButton bntQuaylai;
 	Stack<Integer> stk = new Stack<>();
 	
 	public OnePlayerView(int depth) {
-		
+		Start();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(940, 685);
@@ -106,16 +109,16 @@ public class OnePlayerView extends JFrame {
 		
 		JLabel lblThongtinTrandau = new JLabel("Thông tin trận đấu");
 		lblThongtinTrandau.setForeground(new Color(255, 255, 181));
-		lblThongtinTrandau.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblThongtinTrandau.setFont(new Font("Courier New", Font.BOLD, 21));
 		lblThongtinTrandau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblThongtinTrandau.setBounds(12, 170, 219, 43);
+		lblThongtinTrandau.setBounds(2, 170, 245, 43);
 		contentPane.add(lblThongtinTrandau);
 
-		JLabel lblNguoichoi1 = new JLabel("Peter");
+		JLabel lblNguoichoi1 = new JLabel(tenNguoiChoi);
 		lblNguoichoi1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNguoichoi1.setForeground(new Color(255, 255, 255));
 		lblNguoichoi1.setFont(new Font("Comforter", Font.BOLD, 26));
-		lblNguoichoi1.setBounds(0, 450, 96, 40);
+		lblNguoichoi1.setBounds(0, 450, 102, 40);
 		contentPane.add(lblNguoichoi1);
 		
 		if(depth==1) {
@@ -236,15 +239,15 @@ public class OnePlayerView extends JFrame {
 		contentPane.add(bntQuaylai);
 		
 		JLabel lblTrandaugiua = new JLabel("Trận đấu giữa:");
-		lblTrandaugiua.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblTrandaugiua.setFont(new Font("Courier New", Font.BOLD, 20));
 		lblTrandaugiua.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTrandaugiua.setForeground(new Color(255, 255, 255));
-		lblTrandaugiua.setBounds(57, 420, 131, 28);
+		lblTrandaugiua.setBounds(32, 420, 199, 28);
 		contentPane.add(lblTrandaugiua);
 		
 		JLabel lblIconsVs = new JLabel("");
 		lblIconsVs.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIconsVs.setBounds(95, 442, 67, 54);
+		lblIconsVs.setBounds(100, 442, 67, 54);
 		lblIconsVs.setIcon(new ImageIcon(OnePlayerView.class.getResource("/view/vs_85x85.png")));
 		contentPane.add(lblIconsVs);
 		
@@ -252,7 +255,7 @@ public class OnePlayerView extends JFrame {
 		lblMay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMay.setForeground(new Color(255, 255, 255));
 		lblMay.setFont(new Font("Comforter", Font.BOLD, 26));
-		lblMay.setBounds(160, 450, 54, 40);
+		lblMay.setBounds(165, 450, 54, 40);
 		contentPane.add(lblMay);
 		
 		JLabel lblTgThidau = new JLabel("Thời gian thi đấu: ");
@@ -262,7 +265,7 @@ public class OnePlayerView extends JFrame {
 		lblTgThidau.setBounds(18, 298, 208, 22);
 		contentPane.add(lblTgThidau);
 		
-		JLabel lblTime = new JLabel("00:00");
+		lblTime = new JLabel("00:00");
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTime.setForeground(Color.WHITE);
 		lblTime.setFont(new Font("Courier New", Font.BOLD, 16));
@@ -270,7 +273,7 @@ public class OnePlayerView extends JFrame {
 		contentPane.add(lblTime);
 		
 		
-		JButton btnStart = new JButton("0");
+		btnStart = new JButton("0");
 		btnStart.setForeground(new Color(83, 168, 168));
 		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 5));
 		btnStart.setBackground(new Color(83, 168, 168));
@@ -355,8 +358,7 @@ public class OnePlayerView extends JFrame {
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playSoundButton();
-				dispose();
-				new MenuView();
+				BackHome();
 			}
 		});
 		contentPane.add(btnHome);
@@ -369,35 +371,53 @@ public class OnePlayerView extends JFrame {
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playSoundButton();
-				Reset(depth);
-//				dispose();
-//				if(depth==1) new OnePlayerView(1);
-//				else if(depth==2) new OnePlayerView(2);
-//				else new OnePlayerView(3);
+				Reset();
 			}
 		});
 		contentPane.add(btnReset);
 
 	}
-
-	public void Reset(int depth) {
-		int res = JOptionPane.showConfirmDialog(this, "Bạn có muốn chơi lại không?", "Thông báo",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	
+	public void BackHome() {
+		int res = JOptionPane.showConfirmDialog(this, "Bạn có muốn quay về trang chủ không?", "Thông báo",
+			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		
 		if (res == JOptionPane.YES_OPTION) {
 			dispose();
-			if(depth==1) new OnePlayerView(1);
-			else if(depth==2) new OnePlayerView(2);
-			else new OnePlayerView(3);
+			new MenuView();
 		}
-		 
-//		for (int i = 0; i < N; i++)
-//			for (int j = 0; j < N; j++) {
-//				buttonCellModel[i][j].setIcon(null);
-//				buttonCellModel[i][j].cell.setValue("no");
-//				buttonCellModel[i][j].cell.setVisited(false);
-//				clicked = 0;
-//			}
 	}
+	
+	public void Reset() {
+		int res = JOptionPane.showConfirmDialog(this, "Bạn có muốn chơi lại không?", "Thông báo",
+			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		
+		if (res == JOptionPane.YES_OPTION) ResetEnd();
+	}
+	
+	public void ResetEnd() {
+		btnStart.setText("0");
+		btnStart.setIcon(new ImageIcon(PlayView4.class.getResource("/view/buttonBatdau_114x38.png")));
+		lblClick.setText(0 + "");
+		lblTime.setText("00:00");
+		timer.cancel();
+		sec = 0;
+		timer = new Timer();
+		ST = 0;
+		count = 0;
+		countBack=0;
+		stk.clear();
+			
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++) {
+				buttonCellModel[i][j].setIcon(new ImageIcon("image/border.jpg"));
+				buttonCellModel[i][j].cell.setValue("no");
+				buttonCellModel[i][j].cell.setVisited(false);
+				markPlayer[i][j] = 0;
+				clicked = 0;
+			}
+	}
+	
 
 	//Hàm đánh cờ (vẽ O hoặc X) vào ô cờ, rồi đánh dấu xem đã được thăm chưa
 	public void changePos(String turn, Button_cell bt,int x, int y) {
@@ -467,19 +487,7 @@ public class OnePlayerView extends JFrame {
 			System.out.println("Error with playing sound.");
 			ex.printStackTrace();
 		}
-	}
-	
-//		//Hàm kiểm tra xem hết trận đấu chưa, cụ thể là đã thắng hòa hay thua chưa. (True là đã hết || False là chưa hết)
-//		public int checkWin(int[][] arr, int count) {	
-//			
-//			if(Heuristic.getScore(arr,1,-1) >= winScore) return Machine_WIN;	
-//
-//			else if (Heuristic.getScore(arr,-1,1) >= winScore) return Player_WIN;
-//			
-//			else if (count==N*N) return ST_DRAW;
-//			
-//			return ST_NORMAL;	
-//		}
+	}	
 	
 		public int checkWin(int i, int j, int countXo, int xo) {
 			// Hang ngang
@@ -585,8 +593,7 @@ public class OnePlayerView extends JFrame {
 		int res = JOptionPane.showConfirmDialog(this, "Bạn muốn chơi lại không?","Đã hết game ",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 		
 		if(res == JOptionPane.YES_OPTION) {
-			dispose();
-			new OnePlayerView(depth);
+			ResetEnd();
 		}
 		if(res == JOptionPane.NO_OPTION) {
 			String[] option = {"Trở về Menu chính","Thoát game"};
@@ -598,6 +605,17 @@ public class OnePlayerView extends JFrame {
 			if(choose == 1 ) {
 				System.exit(0);
 			}
+		}
+	}
+	
+	public void Start() {
+		int res = JOptionPane.showConfirmDialog(this, "Bạn có muốn đặt tên cho người chơi không?", "Bắt đầu game ",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (res == JOptionPane.YES_OPTION) {
+			String NAME = JOptionPane.showInputDialog("Nhập tên người chơi O");
+			if (NAME != null)
+				tenNguoiChoi = NAME;
+			else tenNguoiChoi = "Nguoi choi";
 		}
 	}
 }
