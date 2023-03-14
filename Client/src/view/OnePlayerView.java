@@ -32,6 +32,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 
 public class OnePlayerView extends JFrame {
@@ -63,6 +64,7 @@ public class OnePlayerView extends JFrame {
 	Stack<Integer> stk = new Stack<>();
 	
 	public OnePlayerView(int depth) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OnePlayerView.class.getResource("/icon/tic-tac-toe.png")));
 		Start();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,7 +88,7 @@ public class OnePlayerView extends JFrame {
 		
 		JLabel lblgameCaro = new JLabel("Game Caro");
 		lblgameCaro.setForeground(Color.WHITE);
-		lblgameCaro.setFont(new Font(".VnCooperH", Font.PLAIN, 20));
+		lblgameCaro.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 20));
 		lblgameCaro.setBounds(90, 31, 152, 44);
 		contentPane.add(lblgameCaro);
 		
@@ -97,14 +99,14 @@ public class OnePlayerView extends JFrame {
 		
 		JLabel lblChoivsMay = new JLabel("Chơi với máy");
 		lblChoivsMay.setForeground(new Color(255, 255, 255));
-		lblChoivsMay.setFont(new Font("Courier New", Font.BOLD, 19));
-		lblChoivsMay.setBounds(92, 96, 137, 28);
+		lblChoivsMay.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 19));
+		lblChoivsMay.setBounds(62, 132, 137, 28);
 		contentPane.add(lblChoivsMay);
 		
 		JLabel lblOffline = new JLabel("Offline");
 		lblOffline.setForeground(Color.WHITE);
 		lblOffline.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 18));
-		lblOffline.setBounds(124, 69, 76, 28);
+		lblOffline.setBounds(124, 69, 85, 28);
 		contentPane.add(lblOffline);
 		
 		JLabel lblThongtinTrandau = new JLabel("Thông tin trận đấu");
@@ -114,10 +116,10 @@ public class OnePlayerView extends JFrame {
 		lblThongtinTrandau.setBounds(2, 170, 245, 43);
 		contentPane.add(lblThongtinTrandau);
 
-		JLabel lblNguoichoi1 = new JLabel(tenNguoiChoi);
-		lblNguoichoi1.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel lblNguoichoi1 = new JLabel("Bạn");
+		lblNguoichoi1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNguoichoi1.setForeground(new Color(255, 255, 255));
-		lblNguoichoi1.setFont(new Font("Comforter", Font.BOLD, 26));
+		lblNguoichoi1.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 20));
 		lblNguoichoi1.setBounds(0, 450, 102, 40);
 		contentPane.add(lblNguoichoi1);
 		
@@ -147,16 +149,16 @@ public class OnePlayerView extends JFrame {
 
 		JLabel lblSoluotdadanh = new JLabel("Số lượt bạn đã đánh: ");
 		lblSoluotdadanh.setForeground(new Color(255, 255, 255));
-		lblSoluotdadanh.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblSoluotdadanh.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 16));
 		lblSoluotdadanh.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSoluotdadanh.setBounds(9, 265, 200, 22);
+		lblSoluotdadanh.setBounds(9, 265, 223, 22);
 		contentPane.add(lblSoluotdadanh);
 		
 		
 		lblClick = new JLabel("0");
 		lblClick.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClick.setForeground(Color.WHITE);
-		lblClick.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblClick.setFont(new Font("Courier New", Font.PLAIN, 15));
 		lblClick.setBounds(205, 265, 43, 22);
 		contentPane.add(lblClick);
 				
@@ -239,10 +241,10 @@ public class OnePlayerView extends JFrame {
 		contentPane.add(bntQuaylai);
 		
 		JLabel lblTrandaugiua = new JLabel("Trận đấu giữa:");
-		lblTrandaugiua.setFont(new Font("Courier New", Font.BOLD, 20));
+		lblTrandaugiua.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 20));
 		lblTrandaugiua.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTrandaugiua.setForeground(new Color(255, 255, 255));
-		lblTrandaugiua.setBounds(32, 420, 199, 28);
+		lblTrandaugiua.setBounds(27, 409, 199, 28);
 		contentPane.add(lblTrandaugiua);
 		
 		JLabel lblIconsVs = new JLabel("");
@@ -254,21 +256,21 @@ public class OnePlayerView extends JFrame {
 		JLabel lblMay = new JLabel("Máy");
 		lblMay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMay.setForeground(new Color(255, 255, 255));
-		lblMay.setFont(new Font("Comforter", Font.BOLD, 26));
+		lblMay.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 20));
 		lblMay.setBounds(165, 450, 54, 40);
 		contentPane.add(lblMay);
 		
 		JLabel lblTgThidau = new JLabel("Thời gian thi đấu: ");
 		lblTgThidau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTgThidau.setForeground(Color.WHITE);
-		lblTgThidau.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblTgThidau.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 16));
 		lblTgThidau.setBounds(18, 298, 208, 22);
 		contentPane.add(lblTgThidau);
 		
 		lblTime = new JLabel("00:00");
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTime.setForeground(Color.WHITE);
-		lblTime.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblTime.setFont(new Font("Courier New", Font.ITALIC, 16));
 		lblTime.setBounds(86, 327, 61, 22);
 		contentPane.add(lblTime);
 		

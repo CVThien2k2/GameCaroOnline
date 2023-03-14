@@ -106,16 +106,16 @@ public class MenuView extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1.setBackground(new Color(240, 240, 240));
 		lblNewLabel_1.setForeground(new Color(191, 238, 255));
-		lblNewLabel_1.setFont(new Font(".Vn3DH", lblNewLabel_1.getFont().getStyle() | Font.BOLD, lblNewLabel_1.getFont().getSize() + 14));
-		lblNewLabel_1.setBounds(18, 220, 253, 46);
+		lblNewLabel_1.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 24));
+		lblNewLabel_1.setBounds(18, 220, 179, 46);
 		panel_1.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Game Online");
 		lblNewLabel_1_1.setBackground(new Color(240, 240, 240));
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_1.setForeground(new Color(6, 34, 70));
-		lblNewLabel_1_1.setFont(new Font(".Vn3DH", lblNewLabel_1_1.getFont().getStyle() | Font.BOLD, 25));
-		lblNewLabel_1_1.setBounds(66, 358, 245, 46);
+		lblNewLabel_1_1.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 25));
+		lblNewLabel_1_1.setBounds(117, 357, 178, 46);
 		panel_1.add(lblNewLabel_1_1);
 		
 		JButton btnExit = new JButton("");

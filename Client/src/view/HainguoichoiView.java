@@ -24,6 +24,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class HainguoichoiView extends JFrame {
 
@@ -31,6 +32,7 @@ public class HainguoichoiView extends JFrame {
 	private Image img_Xing, img_IconsXO, img_Quaylai, img_Reset, img_Exit, img_Home;
 
 	public HainguoichoiView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(HainguoichoiView.class.getResource("/icon/tic-tac-toe.png")));
 		try{
 			img_Xing = ImageIO.read(getClass().getResource("icons8-xing-96.png"));
             img_IconsXO = ImageIO.read(getClass().getResource("IconsXO_200x200.png"));

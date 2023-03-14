@@ -22,6 +22,7 @@ import java.net.Socket;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class ViewSetUser extends JFrame {
 
@@ -31,6 +32,7 @@ public class ViewSetUser extends JFrame {
 	private DataOutputStream os;
 
 	public ViewSetUser(Socket client) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ViewSetUser.class.getResource("/icon/tic-tac-toe.png")));
 		this.client = client;
 		try {
 			os = new DataOutputStream(client.getOutputStream());

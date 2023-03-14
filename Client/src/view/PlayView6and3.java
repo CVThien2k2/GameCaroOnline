@@ -38,6 +38,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.JTextField;
+import java.awt.Toolkit;
 
 public class PlayView6and3 extends JFrame {
 	private int clicked = 0;
@@ -58,6 +59,7 @@ public class PlayView6and3 extends JFrame {
 	private JLabel lblNewLabel_4;
 	
 	public PlayView6and3() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PlayView6and3.class.getResource("/icon/tic-tac-toe.png")));
 
 		Start();
 		setVisible(true);
@@ -83,19 +85,19 @@ public class PlayView6and3 extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Đến lượt: ");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_1.setFont(new Font("Courier New", Font.ITALIC, 16));
 		lblNewLabel_1.setBounds(10, 224, 109, 22);
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_2.setFont(new Font("Courier New", Font.ITALIC, 16));
 		lblNewLabel_2.setBounds(140, 227, 115, 19);
 		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Số lượt đã đánh: ");
 		lblNewLabel_3.setForeground(new Color(255, 255, 255));
-		lblNewLabel_3.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_3.setFont(new Font("Courier New", Font.ITALIC, 16));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(10, 257, 163, 22);
 		contentPane.add(lblNewLabel_3);
@@ -103,29 +105,29 @@ public class PlayView6and3 extends JFrame {
 		lblNewLabel_4 = new JLabel(clicked + "");
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_4.setFont(new Font("Courier New", Font.ITALIC, 16));
 		lblNewLabel_4.setBounds(180, 258, 57, 20);
 		contentPane.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Trận đấu giữa: ");
 		lblNewLabel_5.setForeground(new Color(255, 255, 255));
-		lblNewLabel_5.setFont(new Font("Courier New", Font.BOLD, 20));
+		lblNewLabel_5.setFont(new Font("Courier New", Font.ITALIC, 20));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setBounds(37, 420, 199, 28);
 		contentPane.add(lblNewLabel_5);
 
 		lblNewLabel_6 = new JLabel(player1.getName() + " VS " + player2.getName());
 		lblNewLabel_6.setForeground(new Color(255, 255, 255));
-		lblNewLabel_6.setFont(new Font("Comforter", Font.BOLD, 26));
+		lblNewLabel_6.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 20));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setBounds(7, 450, 242, 42);
+		lblNewLabel_6.setBounds(7, 450, 263, 42);
 		contentPane.add(lblNewLabel_6);
 
 		btnStart = new JButton("0");
 		btnStart.setForeground(new Color(83, 168, 168));
 		btnStart.setBackground(new Color(83, 168, 168));
 		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 5));
-		btnStart.setBounds(68, 500, 126, 40);
+		btnStart.setBounds(68, 500, 122, 40);
 		btnStart.setIcon(new ImageIcon(PlayView3.class.getResource("/view/buttonBatdau_114x38.png")));
 
 		btnStart.addActionListener(new ActionListener() {
@@ -195,7 +197,7 @@ public class PlayView6and3 extends JFrame {
 		JLabel lblNewLabel_7 = new JLabel("Thời gian thi đấu");
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setForeground(new Color(255, 255, 255));
-		lblNewLabel_7.setFont(new Font("Courier New", Font.BOLD, 16));
+		lblNewLabel_7.setFont(new Font("Courier New", Font.ITALIC, 16));
 		lblNewLabel_7.setBounds(30, 290, 204, 22);
 		contentPane.add(lblNewLabel_7);
 
@@ -203,7 +205,7 @@ public class PlayView6and3 extends JFrame {
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setForeground(new Color(255, 255, 255));
 		lblNewLabel_8.setBackground(new Color(192, 192, 192));
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		lblNewLabel_8.setBounds(95, 323, 83, 13);
 		contentPane.add(lblNewLabel_8);
 
@@ -216,27 +218,27 @@ public class PlayView6and3 extends JFrame {
 		
 		JLabel lblgameCaro = new JLabel("Game Caro");
 		lblgameCaro.setForeground(new Color(255, 238, 240));
-		lblgameCaro.setFont(new Font(".VnCooperH", Font.PLAIN, 20));
-		lblgameCaro.setBounds(90, 31, 152, 44);
+		lblgameCaro.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 20));
+		lblgameCaro.setBounds(95, 30, 139, 44);
 		contentPane.add(lblgameCaro);
 		
 		JLabel lblOffline = new JLabel("Offline");
 		lblOffline.setForeground(new Color(255, 238, 240));
 		lblOffline.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 18));
-		lblOffline.setBounds(124, 69, 76, 28);
+		lblOffline.setBounds(124, 69, 113, 28);
 		contentPane.add(lblOffline);
 		
 		JLabel lblChoivsMay = new JLabel("Hai người chơi");
 		lblChoivsMay.setBackground(new Color(255, 238, 240));
 		lblChoivsMay.setForeground(new Color(255, 238, 240));
-		lblChoivsMay.setFont(new Font("Courier New", Font.BOLD, 19));
-		lblChoivsMay.setBounds(85, 96, 165, 28);
+		lblChoivsMay.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 19));
+		lblChoivsMay.setBounds(68, 111, 165, 28);
 		contentPane.add(lblChoivsMay);
 		
 		JLabel lblThongtinTrandau = new JLabel("Thông tin trận đấu");
 		lblThongtinTrandau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblThongtinTrandau.setForeground(new Color(255, 255, 181));
-		lblThongtinTrandau.setFont(new Font("Courier New", Font.BOLD, 22));
+		lblThongtinTrandau.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 22));
 		lblThongtinTrandau.setBounds(12, 170, 250, 43);
 		contentPane.add(lblThongtinTrandau);
 		

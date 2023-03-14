@@ -27,6 +27,7 @@ import view.OnePlayerView;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import java.awt.Toolkit;
 
 public class OfflineOnePlayerView extends JFrame {
 
@@ -40,6 +41,7 @@ public class OfflineOnePlayerView extends JFrame {
 	
 
 	public OfflineOnePlayerView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OfflineOnePlayerView.class.getResource("/icon/tic-tac-toe.png")));
 		
 		try{
 			img_0 = ImageIO.read(getClass().getResource("icons8-xing-96.png"));
@@ -80,7 +82,7 @@ public class OfflineOnePlayerView extends JFrame {
 		
 		JButton btnQuaylai = new JButton("Quay lại");
 		btnQuaylai.setHorizontalAlignment(SwingConstants.LEFT);
-		btnQuaylai.setFont(new Font("Space Mono", Font.BOLD, 18));
+		btnQuaylai.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 18));
 		btnQuaylai.setBackground(new Color(71, 141, 141));
 		btnQuaylai.setBounds(62, 482, 173, 44);
 		Image imgQuaylai = img_Quaylai;
@@ -156,7 +158,7 @@ public class OfflineOnePlayerView extends JFrame {
 		JLabel lblMotnguoichoi = new JLabel("Một người chơi");
 		lblMotnguoichoi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMotnguoichoi.setForeground(new Color(242, 231, 252));
-		lblMotnguoichoi.setFont(new Font("Bungee", Font.BOLD, 26));
+		lblMotnguoichoi.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 26));
 		lblMotnguoichoi.setBackground(new Color(242, 252, 255));
 		lblMotnguoichoi.setBounds(17, 273, 269, 54);
 		panel_1.add(lblMotnguoichoi);
@@ -171,14 +173,14 @@ public class OfflineOnePlayerView extends JFrame {
 		contentPane.add(lblGameCaro_1);
 		
 		JLabel lblChonchedochoi = new JLabel("Chọn chế độ chơi");
-		lblChonchedochoi.setFont(new Font("Courier New", Font.BOLD, 30));
+		lblChonchedochoi.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 30));
 		lblChonchedochoi.setForeground(new Color(255, 255, 181));
 		lblChonchedochoi.setBounds(475, 195, 311, 58);
 		contentPane.add(lblChonchedochoi);
 		
 		JButton btnDe = new JButton("Dễ");
 		btnDe.setBorder(UIManager.getBorder("Button.border"));
-		btnDe.setFont(new Font("Space Mono", Font.BOLD | Font.ITALIC, 20));
+		btnDe.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 20));
 		btnDe.setBackground(new Color(138, 196, 196));
 		btnDe.setForeground(new Color(255, 255, 255));
 		btnDe.setBounds(513, 295, 214, 39);
@@ -193,7 +195,7 @@ public class OfflineOnePlayerView extends JFrame {
 		
 		JButton btnTrungBinh = new JButton("Trung bình");
 		btnTrungBinh.setForeground(Color.WHITE);
-		btnTrungBinh.setFont(new Font("Space Mono", Font.BOLD | Font.ITALIC, 20));
+		btnTrungBinh.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 20));
 		btnTrungBinh.setBackground(new Color(138, 196, 196));
 		btnTrungBinh.setBounds(513, 366, 214, 39);
 		btnTrungBinh.addActionListener(new ActionListener() {

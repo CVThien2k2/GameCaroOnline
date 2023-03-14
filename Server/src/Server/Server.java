@@ -43,7 +43,7 @@ public class Server {
 		);
 
 		try {
-			listener = new ServerSocket(1234);
+			listener = new ServerSocket(6666);
 		} catch (IOException e) {
 			System.out.println(e);
 			System.exit(1);

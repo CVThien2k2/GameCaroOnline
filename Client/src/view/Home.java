@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import model.Player;
 
@@ -17,6 +19,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -30,6 +33,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.FlowLayout;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BoxLayout;
 import javax.swing.SpringLayout;
 import net.miginfocom.swing.MigLayout;
@@ -38,6 +45,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.CardLayout;
 import javax.swing.JScrollBar;
+import java.awt.Toolkit;
 
 public class Home extends JFrame {
 
@@ -51,6 +59,7 @@ public class Home extends JFrame {
 	private JTextArea textArea;
 
 	public Home(Socket client, Player player) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/icon/tic-tac-toe.png")));
 		this.client = client;
 		this.player = player;
 
@@ -145,6 +154,7 @@ public class Home extends JFrame {
 		btnNewButton_2.setIcon(new ImageIcon("src/view/button_ChoingayOnline_170x60.png"));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSound();
 				try {
 					ld = new Load(client);
 
@@ -181,6 +191,7 @@ public class Home extends JFrame {
 		btnNewButton_1.setIcon(new ImageIcon("src/view/button_Taophong_167x60.png"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSound();
 				try {
 					write("create-room");
 
@@ -200,6 +211,7 @@ public class Home extends JFrame {
 		btnNewButton.setIcon(new ImageIcon("src/view/button_vaophong_167x60.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSound();
 				String idroom = JOptionPane.showInputDialog("Nhập id phòng");
 				if(idroom != null)try {
 					System.out.println("join-room," + idroom);
@@ -224,6 +236,7 @@ public class Home extends JFrame {
 		btnNewButton_4.setIcon(new ImageIcon(Home.class.getResource("/icon/send.png")));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSound();
 				String sms = textField.getText();
 				if(!sms.equals("")) {
 					textField.setText("");
@@ -246,6 +259,7 @@ public class Home extends JFrame {
 		btnNewButton_3.setIcon(new ImageIcon("src/view/button_thoatonline_137x53.png"));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSound();
 				System.exit(0);
 			}
 		});
@@ -276,6 +290,26 @@ public class Home extends JFrame {
 		textField.setBounds(242, 291, 440, 35);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		textField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				playSound();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(242, 216, 510, 65);
@@ -297,5 +331,17 @@ public class Home extends JFrame {
 	}
 	public void SetChat(String sms) {
 		textArea.setText(textArea.getText()+"\n" + sms);
+	}
+	public void playSound() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
 	}
 }

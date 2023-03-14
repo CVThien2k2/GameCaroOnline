@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 
 public class Offline extends JFrame {
 
@@ -33,6 +34,7 @@ public class Offline extends JFrame {
 	private Image img_IconsXO1, img_Xing, img_Quaylai, img_Reset, img_Exit, img_Home, img_MotNguoiChoi, img_HaiNguoiChoi;
 
 	public Offline() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Offline.class.getResource("/icon/tic-tac-toe.png")));
 		
 		try{
 			img_Xing = ImageIO.read(getClass().getResource("icons8-xing-96.png"));
@@ -82,7 +84,7 @@ public class Offline extends JFrame {
 				new MenuView();
 			}
 		});
-		btnQuaylai.setFont(new Font("Space Mono", Font.BOLD, 18));
+		btnQuaylai.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 18));
 		btnQuaylai.setBackground(new Color(71, 141, 141));
 		btnQuaylai.setBounds(62, 482, 173, 44);
 		Image imgQuaylai = img_Quaylai;
@@ -158,7 +160,7 @@ public class Offline extends JFrame {
 		
 		JLabel lblChonCheDoChoi = new JLabel("Chọn chế độ chơi");
 		lblChonCheDoChoi.setHorizontalAlignment(SwingConstants.CENTER);
-		lblChonCheDoChoi.setFont(new Font("Courier New", Font.BOLD, 30));
+		lblChonCheDoChoi.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 30));
 		lblChonCheDoChoi.setForeground(new Color(255, 255, 181));
 		lblChonCheDoChoi.setBounds(468, 195, 311, 58);
 		contentPane.add(lblChonCheDoChoi);

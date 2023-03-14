@@ -31,6 +31,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class InRoom extends JFrame {
 
@@ -47,6 +48,7 @@ public class InRoom extends JFrame {
 	private JButton btnNewButton_2;
 
 	public InRoom(Socket client, Player player) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InRoom.class.getResource("/icon/tic-tac-toe.png")));
 		this.client = client;
 		this.player = player;
 		try {

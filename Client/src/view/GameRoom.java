@@ -33,6 +33,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import model.Button_cell;
 import model.Player;
@@ -49,6 +51,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class GameRoom extends JFrame {
 	private static final int M = 10;
@@ -75,6 +78,7 @@ public class GameRoom extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	public GameRoom(Socket client, Player player) throws IOException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GameRoom.class.getResource("/icon/vs.png")));
 		imgO = ImageIO.read(getClass().getResource("/icon/o2.jpg"));
 		imgX = ImageIO.read(getClass().getResource("/icon/x2.jpg"));
 		timer = new Timer();
@@ -241,6 +245,26 @@ public class GameRoom extends JFrame {
 		panel_2.setLayout(null);
 
 		sms = new JTextField();
+		sms.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				playSound1();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		sms.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 10));
 		sms.setBounds(59, 0, 186, 49);
 		panel_2.add(sms);
@@ -252,6 +276,7 @@ public class GameRoom extends JFrame {
 		sendsms.setIcon(new ImageIcon(GameRoom.class.getResource("/icon/gui.png")));
 		sendsms.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				playSound1();
 				String mess = sms.getText();
 				System.out.println(mess);
 				if (!mess.trim().equals("")) {
@@ -272,14 +297,14 @@ public class GameRoom extends JFrame {
 		denluotban.setForeground(new Color(255, 255, 255));
 		denluotban.setHorizontalAlignment(SwingConstants.CENTER);
 		denluotban.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
-		denluotban.setBounds(48, 135, 173, 27);
+		denluotban.setBounds(38, 135, 204, 27);
 		contentPane.add(denluotban);
 
 		luotdoithu = new JLabel("New label");
 		luotdoithu.setForeground(new Color(255, 255, 255));
 		luotdoithu.setHorizontalAlignment(SwingConstants.CENTER);
 		luotdoithu.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 17));
-		luotdoithu.setBounds(765, 135, 173, 27);
+		luotdoithu.setBounds(765, 135, 194, 27);
 		contentPane.add(luotdoithu);
 
 		contentPane.add(loading2);
@@ -308,6 +333,7 @@ public class GameRoom extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					playSound1();
 					write("dau-hang");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -325,6 +351,7 @@ public class GameRoom extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					playSound1();
 					write("xin-hoa");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -570,6 +597,7 @@ public class GameRoom extends JFrame {
 	public void setsms(String string) {
 		// TODO Auto-generated method stub
 		allsms.setText(allsms.getText() + "\nĐối thủ: " + string);
+		playSound();
 	}
 
 	public void end() {
@@ -582,6 +610,18 @@ public class GameRoom extends JFrame {
 		try {
 			AudioInputStream audioInputStream = AudioSystem
 					.getAudioInputStream(new File("image/click.wav").getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
+		}
+	}
+	public void playSound1() {
+		try {
+			AudioInputStream audioInputStream = AudioSystem
+					.getAudioInputStream(new File("image/click3.wav").getAbsoluteFile());
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();

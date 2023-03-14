@@ -55,7 +55,7 @@ public class Client {
 				public void run() {
 
 					try {
-						client = new Socket("localhost", 1234);
+						client = new Socket("192.168.3.102", 6666);
 						System.out.println("Kết nối thành công!");
 						// Tạo luồng đầu ra tại client (Gửi dữ liệu tới server)
 						os = new DataOutputStream(client.getOutputStream());
